@@ -22,5 +22,4 @@ if admin.new_record? || admin.changed?
 else
   puts "Admin user already exists!"
 end
-
 #--Adminのseed設定ここまで--
