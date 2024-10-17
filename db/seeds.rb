@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-#--Adminのseed設定--
+# --Adminのseed設定--
 # すでに同じメールアドレスのAdminが存在しないか確認
 admin = Admin.find_or_initialize_by(email: 'admin@example.com')
 
@@ -22,4 +22,4 @@ if admin.new_record? || admin.changed?
 else
   puts "Admin user already exists!"
 end
-#--Adminのseed設定ここまで--
+# --Adminのseed設定ここまで--
