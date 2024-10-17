@@ -9,5 +9,6 @@ class Public::ItemsController < ApplicationController
 # GET	/items/:id
   def show
     @item = Item.find(params[:id])
+    @genres = Genre.all
   end
 end

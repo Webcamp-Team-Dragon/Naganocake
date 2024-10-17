@@ -1,7 +1,17 @@
-<div class="container">
-  <div class="row">
+<div class='container'>
+  <div class='row'>
     <%= render 'public/items/sidebar', genres: @genres %>
-    <div class="col-xs-9">
+    <div class='col-md-3'>
+      <p>#ケーキの写真が入るならここ#</p>
+    </div>
+    <div class='col-md-6'>
+      <h3>Public::Items#show, 商品詳細ページ</h3>
+      <p>Find me in app/views/public/items/show.html.erb</p>
+      <p><strong><%= @item.name %></strong></p>
+      <p><%= @item.introduction %></p>
+      <p><%= @item.price %>円(税込)</p>
+      <p>＃個数選択フォーム＃</p>
+      <p>＃カートに入れるボタン＃</p>
     </div>
   </div>
 </div>
