@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
+    get 'genres', to: 'admin/genres#index', as: :genres
+    get 'genres/:id', to: 'admin/genres#show', as: :genre
+
     get 'addresses/index'
     get 'addresses/edit'
     get 'addresses/create'
@@ -52,7 +55,7 @@ Rails.application.routes.draw do
 
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
-  get "items/:id"=>"public/items#show"
+  # get "items/:id"=>"public/items#show"
 
 # 顧客用
 # URL /customers/sign_in ...
