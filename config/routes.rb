@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  scope module: :public do
+    resources :orders
+    get 'orders/confirm'
+    get 'orders/thanks'
+  end
+
   namespace :admin do
     get 'order_details/update'
     get 'orders/show'
@@ -28,7 +35,31 @@ Rails.application.routes.draw do
   namespace :public do
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
+    # get 'addresses/index'
+    # get 'addresses/edit'
+    # get 'addresses/create'
+    # get 'addresses/update'
+    # get 'addresses/destroy'
+    resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
+  end
 
+<<<<<<< HEAD
+  namespace :public do
+    # get 'orders/new'
+    # get 'orders/confirm'
+    # get 'orders/thanks'
+    # get 'orders/create'
+    # get 'orders/index'
+    # get 'orders/show'
+    # resources :orders
+  end
+  namespace :public do
+    get 'cart_items/index'
+    get 'cart_items/update'
+    get 'cart_items/destroy'
+    get 'cart_items/destroy_all'
+    get 'cart_items/create'
+=======
     get 'addresses/index'
     get 'addresses/edit'
     get 'addresses/create'
@@ -40,6 +71,7 @@ Rails.application.routes.draw do
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
+>>>>>>> develop
     get 'customers/show'
     get 'customers/edit'
     get 'customers/update'
