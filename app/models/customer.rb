@@ -8,4 +8,6 @@ class Customer < ApplicationRecord
    has_many :orders
    has_many :shipping_addresses, dependent: :destroy
 
+   has_many :addresses, dependent: :destroy
+
 end

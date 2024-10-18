@@ -32,20 +32,12 @@ Rails.application.routes.draw do
   namespace :public do
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
-
-    get 'addresses/index'
-    get 'addresses/edit'
-    get 'addresses/create'
-    get 'addresses/update'
-    get 'addresses/destroy'
-<<<<<<< HEAD
-    get 'orders/new'
-    get 'orders/confirm'
-    get 'orders/thanks'
-    get 'orders/create'
-    get 'orders/index'
-    get 'orders/show'
-=======
+    # get 'addresses/index'
+    # get 'addresses/edit'
+    # get 'addresses/create'
+    # get 'addresses/update'
+    # get 'addresses/destroy'
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
   namespace :public do
     # get 'orders/new'
@@ -57,7 +49,6 @@ Rails.application.routes.draw do
     # resources :orders
   end
   namespace :public do
->>>>>>> 7ca8eec (20241017_21:53)
     get 'cart_items/index'
     get 'cart_items/update'
     get 'cart_items/destroy'
