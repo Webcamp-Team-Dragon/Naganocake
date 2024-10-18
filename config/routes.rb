@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  scope module: :public do
+    resources :orders
+    get 'orders/confirm'
+    get 'orders/thanks'
+  end
+
   namespace :admin do
     get 'order_details/update'
     get 'orders/show'
@@ -31,12 +38,26 @@ Rails.application.routes.draw do
     get 'addresses/create'
     get 'addresses/update'
     get 'addresses/destroy'
+<<<<<<< HEAD
     get 'orders/new'
     get 'orders/confirm'
     get 'orders/thanks'
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
+=======
+  end
+  namespace :public do
+    # get 'orders/new'
+    # get 'orders/confirm'
+    # get 'orders/thanks'
+    # get 'orders/create'
+    # get 'orders/index'
+    # get 'orders/show'
+    # resources :orders
+  end
+  namespace :public do
+>>>>>>> 7ca8eec (20241017_21:53)
     get 'cart_items/index'
     get 'cart_items/update'
     get 'cart_items/destroy'
