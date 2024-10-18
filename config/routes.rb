@@ -37,8 +37,9 @@ Rails.application.routes.draw do
     # get 'addresses/create'
     # get 'addresses/update'
     # get 'addresses/destroy'
-    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
+    resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
   end
+
   namespace :public do
     # get 'orders/new'
     # get 'orders/confirm'
