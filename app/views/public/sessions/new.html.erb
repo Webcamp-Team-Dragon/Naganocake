@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row pt-5">
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<%= render "public/shared/error_messages", resource: resource %>
+    <div class="col-xl-8 ml-auto">
+   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+   <%= render "public/shared/error_messages", resource: resource %>     
   <h4>ログイン</h4>
-   <p>会員の方はこちらからログイン</p>
+  <p>会員の方はこちらからログイン</p>
+
     <tr></tr>
       <table>
         <tr>
@@ -21,9 +23,10 @@
       </table>
     <% end %>
 
-<h4>会員登録がお済みでない方</h4>
+ <h5 class="text-left">会員登録がお済みでない⽅</h5>
 <%= link_to "こちら", new_customer_registration_path %>から新規登録を行ってください。
 
+    </div>
   </div>
 </div>
 
