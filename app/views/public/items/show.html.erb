@@ -1,20 +1,10 @@
 <div class='container'>
   <div class='row'>
-<<<<<<< HEAD
-    <div class='col-md-3'>
-      <%= render 'public/items/sidebar', genres: @genres %>
-    </div>
-    <div class='col-md-3'>
-      <p><%= attachment_image_tag item, :image, size: "300×300" %></p>
-=======
     <%= render 'public/items/sidebar', genres: @genres %>
     <div class='col-md-3'>
-      <p>#ケーキの写真が入るならここ#</p>
->>>>>>> 82a0932b6e8fc84306e2f1049da71ab5d7b331a9
+      <%= image_tag url_for(@item.image.variant(resize_to_limit: [100, 100])) %>
     </div>
     <div class='col-md-6'>
-      <h3>Public::Items#show, 商品詳細ページ</h3>
-      <p>Find me in app/views/public/items/show.html.erb</p>
       <p><strong><%= @item.name %></strong></p>
       <p><%= @item.introduction %></p>
       <p><%= @item.price %>円(税込)</p>
