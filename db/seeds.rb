@@ -23,6 +23,7 @@ else
   puts "Admin user already exists!"
 end
 # --Adminのseed設定ここまで--
+# --Adminのseed設定ここまで--
 
 # ----------------------------------------------------------------------------------
 # 動作確認のため下記追加しました。必要に応じてコメントアウトしてください！（田中）
@@ -44,12 +45,12 @@ genres = Genre.create([
 
 # アイテムのデータを作成
 items = Item.create([
-  { genre_id: genres[0].id, name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, is_active: true },
-  { genre_id: genres[0].id, name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, is_active: true },
-  { genre_id: genres[1].id, name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, is_active: true },
-  { genre_id: genres[2].id, name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, is_active: true },
-  { genre_id: genres[3].id, name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, is_active: true },
-  { genre_id: genres[0].id, name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, is_active: true },
-  { genre_id: genres[0].id, name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, is_active: true },
+  { genre_id: genres[0].id, name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[0].id, name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[1].id, name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[2].id, name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[3].id, name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[0].id, name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
+  { genre_id: genres[0].id, name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg"), },
 ])
 # -----------------------------------Genres、Itemsのseed追加ここまで----------------------------------

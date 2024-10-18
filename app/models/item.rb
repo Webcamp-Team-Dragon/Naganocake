@@ -4,4 +4,8 @@ class Item < ApplicationRecord
   has_many :order_details
 
   has_one_attached :image
+
+  def get_image(width,height)
+    self.image.variant(resize_to_limit: [width,height]).processed
+  end
 end
