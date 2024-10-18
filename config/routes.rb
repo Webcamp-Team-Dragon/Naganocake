@@ -26,10 +26,10 @@ Rails.application.routes.draw do
     get 'items/show'
     get 'items/edit'
     get 'items/update'
-    
+
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
-     
+
   end
 
   namespace :public do
@@ -41,25 +41,7 @@ Rails.application.routes.draw do
     # get 'addresses/update'
     # get 'addresses/destroy'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-  end
 
-<<<<<<< HEAD
-  namespace :public do
-    # get 'orders/new'
-    # get 'orders/confirm'
-    # get 'orders/thanks'
-    # get 'orders/create'
-    # get 'orders/index'
-    # get 'orders/show'
-    # resources :orders
-  end
-  namespace :public do
-    get 'cart_items/index'
-    get 'cart_items/update'
-    get 'cart_items/destroy'
-    get 'cart_items/destroy_all'
-    get 'cart_items/create'
-=======
     get 'addresses/index'
     get 'addresses/edit'
     get 'addresses/create'
@@ -71,7 +53,6 @@ Rails.application.routes.draw do
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
->>>>>>> develop
     get 'customers/show'
     get 'customers/edit'
     get 'customers/update'
