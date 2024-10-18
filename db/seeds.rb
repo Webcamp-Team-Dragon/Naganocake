@@ -33,23 +33,57 @@ end
 # ・Item.delete_all
 # ・Genre.delete_allの2つを実行する
 
-
-# ジャンルのデータを作成（
-genres = Genre.create([
+# ジャンルのデータを作成
+genres_data = [
   { name: 'ケーキ' },
   { name: '焼き菓子' },
   { name: 'プリン' },
   { name: 'キャンディ' }
-])
+]
+
+genres_data.each do |genre_data|
+  genre = Genre.find_or_create_by(name: genre_data[:name])  # find_or_create_byを使用して、ジャンルが存在しない場合のみ新しく作成します。
+  puts "Genre '#{genre.name}' created or already exists!"
+end
 
 # アイテムのデータを作成
-items = Item.create([
-  { genre_id: genres[0].id, name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, is_active: true },
-  { genre_id: genres[0].id, name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, is_active: true },
-  { genre_id: genres[1].id, name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, is_active: true },
-  { genre_id: genres[2].id, name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, is_active: true },
-  { genre_id: genres[3].id, name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, is_active: true },
-  { genre_id: genres[0].id, name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, is_active: true },
-  { genre_id: genres[0].id, name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, is_active: true },
-])
-# -----------------------------------Genres、Itemsのseed追加ここまで----------------------------------
+items_data = [
+  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500 },
+  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800 },
+  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800 },
+  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600 },
+  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700 },
+  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100 },
+  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330 }
+]
+
+items_data.each do |item_data|
+  genre = Genre.find_by(name: item_data[:genre_name])
+
+  # アイテムがすでに存在するか確認。存在しない場合は新規作成、存在する場合は更新する形。
+  item = Item.find_or_initialize_by(name: item_data[:name], genre_id: genre.id)
+
+  # アイテムの属性を設定
+  item.introduction = item_data[:introduction]
+  item.price = item_data[:price]
+  item.is_active = true
+  item.image = ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg") unless item.persisted?
+
+  if item.new_record? || item.changed?
+    item.save!
+    puts "Item '#{item.name}' created or updated!"
+  else
+    puts "Item '#{item.name}' already exists!"
+  end
+end
+
+puts "All items processed!"
+
+# # カート内アイテムの作成　※customerの情報追加後に実施予定
+# cart_items = CartItem.create([
+#   { customer_id: 1, items_id: 1, amount: 2 },
+#   { customer_id: 1, items_id: 2, amount: 1 },
+#   { customer_id: 2, items_id: 3, amount: 4 },
+#   { customer_id: 2, items_id: 1, amount: 1 }
+# ])
+# -----------------------------------Genres、Items、Cart_itemsのseed追加ここまで----------------------------------
