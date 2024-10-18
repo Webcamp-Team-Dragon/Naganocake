@@ -22,5 +22,5 @@ class Public::CartItemsController < ApplicationController
       redirect_to public_cart_items_path, notice: '商品がカートに追加されました'
     else
       redirect_to item_path(params[:item_id]), alert: 'カートに追加できませんでした'
+    end
   end
-end
