@@ -19,10 +19,10 @@ Rails.application.routes.draw do
     get 'items/show'
     get 'items/edit'
     get 'items/update'
-    
+
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
-     
+
   end
 
   namespace :public do
