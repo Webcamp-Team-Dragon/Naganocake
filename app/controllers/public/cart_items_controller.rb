@@ -17,5 +17,6 @@ class Public::CartItemsController < ApplicationController
 
 # POST	/cart_items
   def create
+    redirect_to cart_path, notice: '商品がカートに追加されました'
   end
 end

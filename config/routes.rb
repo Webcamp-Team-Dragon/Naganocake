@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
   end
 
   get 'homes/top'
