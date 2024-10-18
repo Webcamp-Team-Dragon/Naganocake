@@ -1,15 +1,25 @@
 <header>
   <div class='container', style="background-color: #f1f0e5;">
-  	<div class='row'>
-    	<div class='mx-auto'>
-        <h1>Layouts#_header</h1>
-        <p>Find me in app/views/layouts/_footer.html.erb</p>
+    	<h1>Layouts#_header</h1> 
+    	<ul class="">
+       <% if customer_signed_in? %>	  
         
-        <%= link_to "about", home_about_path %>
-        <%= link_to "商品一覧", root_path %>
-        <%= link_to "新規登録", new_customer_registration_path %>
-        <%= link_to "ログイン", new_customer_session_path %>
-    	</div>
-    </div>
+      <!--カスタマーがログインしている時 --> 
+        <li class="nav-item"><%= link_to "マイページ", root_path %></li>
+        <li class="nav-item"><%= link_to "商品一覧", root_path %></li>
+        <li class="nav-item"><%= link_to "カート", root_path %></li>
+        <li class="nav-item"><%= link_to "about", home_about_path %></li>
+        <li class="nav-item"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete %></li>
+        
+        <% else %>
+        
+      <!-- ログインしていない時 -->  
+        <li><%= link_to "about", home_about_path %></li>
+        <li><%= link_to "商品一覧", root_path %></li>
+        <li><%= link_to "新規登録", new_customer_registration_path %></li>
+        <li><%= link_to "ログイン", new_customer_session_path %></li>
+        
+      <% end %>
+        </ul>
   </div>
 </header>
