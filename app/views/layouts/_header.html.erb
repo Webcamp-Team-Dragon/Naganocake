@@ -1,12 +1,12 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light">
   <div class='container', style="background-color: #f1f0e5;">
-    
+
     	 <%= link_to "NaganoCAKE", root_path, class:"header-title navbar-brand"%>
-    	 
+
       <ul class="navbar-nav">
-       <% if customer_signed_in? %>	  
-      <!--カスタマーがログインしている時 --> 
+       <% if customer_signed_in? %>
+      <!--カスタマーがログインしている時 -->
         <li style="">
           ようこそ、<%= current_customer.last_name + current_customer.first_name %>さん！
         </li>
@@ -22,7 +22,7 @@
         <li class="nav-item">
           <%= link_to "ログアウト", destroy_customer_session_path, class: 'btn btn-outline-secondary mx-3 my-1', method: :delete %>
         </li>
-      
+
         <% elsif admin_signed_in? %>
        <!-- 管理者がログインしている時 -->
         <li class="nav-item">
@@ -40,10 +40,10 @@
         <li class="nav-item">
           <%= link_to "ログアウト", destroy_admin_session_path, class: 'btn btn-outline-secondary mx-3 my-1', method: :delete %>
         </li>
-      
+
         <% else %>
-        
-      <!-- ログインしていない時 -->  
+
+      <!-- ログインしていない時 -->
         <li class="nav-item">
          <%= link_to "about", home_about_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
         </li>
@@ -58,7 +58,7 @@
 
       <% end %>
       </ul>
-  
+
   </div>
   </nav>
 </header>
