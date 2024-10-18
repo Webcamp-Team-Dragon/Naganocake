@@ -40,17 +40,13 @@ Rails.application.routes.draw do
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
-    get 'cart_items/index'
-    get 'cart_items/update'
-    get 'cart_items/destroy'
-    get 'cart_items/destroy_all'
-    get 'cart_items/create'
     get 'customers/show'
     get 'customers/edit'
     get 'customers/update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
   end
 
   get 'homes/top'
