@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     get 'orders/thanks'
   end
 
+  scope module: :public do
+    resources :customers, only: [:show, :edit, :update]
+  end
+
   namespace :admin do
     get 'order_details/update'
     get 'orders/show'
@@ -34,16 +38,12 @@ Rails.application.routes.draw do
 
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
 
-    get 'orders/new'
-    get 'orders/confirm'
-    get 'orders/thanks'
-    get 'orders/create'
-    get 'orders/index'
-    get 'orders/show'
+    get 'addresses/index'
+    get 'addresses/edit'
+    get 'addresses/create'
+    get 'addresses/update'
+    get 'addresses/destroy'
 
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
