@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  
+  # 顧客用
+# URL /customers/sign_in ...
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  # 管理者用
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
+  
+  root :to =>"public/homes#top"
+  get "home/about"=>"public/homes#about"
 
   scope module: :public do
     resources :orders
@@ -24,8 +40,9 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-    resources :genres
-    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :customers, only: [:index, :edit, :update, :show]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
@@ -55,22 +72,5 @@ Rails.application.routes.draw do
   get 'homes/top'
   get 'homes/about'
 
-  root :to =>"public/homes#top"
-  get "home/about"=>"public/homes#about"
-  # get "items/:id"=>"public/items#show"
-
  end
-
-# 顧客用
-# URL /customers/sign_in ...
-  devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
-
-  # 管理者用
-  # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
-    sessions: "admin/sessions"
-  }
 end

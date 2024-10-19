@@ -1,5 +1,12 @@
- <h2>商品一覧</h2>
- <%= link_to "・商品新規登録", new_admin_item_path %>
+
+<h3 class="m-4"><span style="background-color:#eeeeee">商品一覧</span></h3>
+
+    <div class="col-3">
+      <p class="my-4"><%= link_to new_admin_item_path do %>
+        <button type="button" class="btn btn-outline-dark rounded-circle p-0" style="width:3rem;height:3rem;">＋</button>
+      <% end %></p>
+    </div>
+    
       <table class="table">
         <thead>
           <tr>
@@ -25,5 +32,8 @@
               </td>
             </tr>
             <% end %>
+            
         </tbody>
       </table>
+      
+      

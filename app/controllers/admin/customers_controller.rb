@@ -1,17 +1,30 @@
 class Admin::CustomersController < ApplicationController
-# GET	/admin/customers
+  before_action :authenticate_admin!
+
   def index
+   @customers = Customer.all
   end
 
-# GET	/admin/customers/:id
   def show
+   @customer = Customer.find(params[:id])
   end
 
-# GET	/admin/customers/:id/edit
   def edit
+    @customer = Customer.find(params[:id])
   end
 
-# PATCH	/admin/customers/:id
   def update
+    @customer = Customer.find(params[:id])
+    if @customer.update(customer_params)
+      redirect_to admin_customers_path(@customer)
+      flash[:notice] = "顧客情報を更新しました！"
+    else
+     redirect_to admins_customer_path(@customer)
+    end
+  end
+
+  private
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email, :is_active)
   end
 end
