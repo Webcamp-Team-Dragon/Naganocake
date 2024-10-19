@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row pt-5">
-    
+
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
      <%= render "public/shared/error_messages", resource: resource %>
 
@@ -63,15 +63,15 @@
         <td></td>
         <td></td>
       </tr>
-    </tbody> 
+    </tbody>
     </table>
-    
+
      <table>
       <div class="text-center">
         <%= f.submit "新規登録", class: "btn btn-success" %>
       <% end %>
       </div>
-      
+
     <h5 class="text-left">既に登録済みの方</h5>
     <p><%= link_to "こちら", new_customer_session_path %>からログインしてください。</p>
     </table>

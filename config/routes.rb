@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  scope module: :public do
+    resources :orders
+    get 'orders/confirm'
+    get 'orders/thanks'
+  end
+
   namespace :admin do
     get 'order_details/update'
     get 'orders/show'
@@ -13,48 +20,45 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
+
    resources :items, only: [:show, :index, :new, :create, :edit, :update]
     
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
-     
+
   end
 
   namespace :public do
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
 
-    get 'addresses/index'
-    get 'addresses/edit'
-    get 'addresses/create'
-    get 'addresses/update'
-    get 'addresses/destroy'
+    resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
+  end
+
+  namespace :public do
     get 'orders/new'
     get 'orders/confirm'
     get 'orders/thanks'
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
-    get 'cart_items/index'
-    get 'cart_items/update'
-    get 'cart_items/destroy'
-    get 'cart_items/destroy_all'
-    get 'cart_items/create'
+
     get 'customers/show'
     get 'customers/edit'
     get 'customers/update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
-  end
-
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
+ 
   get 'homes/top'
   get 'homes/about'
 
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
-
+ end
+    
 # 顧客用
 # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords], controllers: {

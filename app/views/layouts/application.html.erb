@@ -13,6 +13,15 @@
 
   <body>
     <%= render 'layouts/header' %>
+    <!--フラッシュメッセージ機能の追加-->
+    <div class="container">
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+    <!--ここまで-->
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>
