@@ -63,4 +63,15 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def update
+    resource = current_customer
+    resource.update_without_password(customer_params)
+    redirect_to public_customers_show_path
+  end
+
+  private
+  def customer_params
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
+  end
 end
