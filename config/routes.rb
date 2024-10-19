@@ -20,13 +20,9 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-    get 'items/index'
-    get 'items/new'
-    get 'items/create'
-    get 'items/show'
-    get 'items/edit'
-    get 'items/update'
 
+   resources :items, only: [:show, :index, :new, :create, :edit, :update]
+    
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
 
@@ -35,24 +31,16 @@ Rails.application.routes.draw do
   namespace :public do
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
-    # get 'addresses/index'
-    # get 'addresses/edit'
-    # get 'addresses/create'
-    # get 'addresses/update'
-    # get 'addresses/destroy'
+
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
 
-    get 'addresses/index'
-    get 'addresses/edit'
-    get 'addresses/create'
-    get 'addresses/update'
-    get 'addresses/destroy'
     get 'orders/new'
     get 'orders/confirm'
     get 'orders/thanks'
     get 'orders/create'
     get 'orders/index'
     get 'orders/show'
+
     get 'customers/show'
     get 'customers/edit'
     get 'customers/update'
@@ -60,15 +48,15 @@ Rails.application.routes.draw do
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
-  end
-
+ 
   get 'homes/top'
   get 'homes/about'
 
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
-
+ end
+    
 # 顧客用
 # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords], controllers: {
