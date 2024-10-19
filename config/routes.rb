@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   # 顧客用
-<<<<<<< HEAD
+
   # URL /customers/sign_in ...
-=======
-# URL /customers/sign_in ...
->>>>>>> develop
+
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -15,14 +13,10 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
-<<<<<<< HEAD
-  root :to =>"public/homes#top"
-=======
-
 
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
->>>>>>> develop
+
 
   scope module: :public do
     resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
