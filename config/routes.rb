@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  # 顧客用
+# URL /customers/sign_in ...
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  # 管理者用
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
+
+
+  root :to =>"public/homes#top"
+  get "home/about"=>"public/homes#about"
 
   scope module: :public do
     resources :orders
@@ -8,7 +24,14 @@ Rails.application.routes.draw do
 
   scope module: :public do
     resources :customers, only: [:show, :edit, :update]
+    resources :items, only: [:index, :show]
+    resources :cart_items, only: [:index, :update, :destroy, :create] do
+      collection do
+        delete :destroy_all # カートを空にするルート
+      end
+    end
   end
+
 
   namespace :admin do
     get 'order_details/update'
@@ -41,36 +64,16 @@ Rails.application.routes.draw do
     # get 'addresses/update'
     # get 'addresses/destroy'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-    
+
     get 'customers/unsubscribe'
     get 'customers/withdraw'
-    resources :items, only: [:index, :show]
 
-    resources :cart_items, only: [:index, :update, :destroy, :create] do
-      collection do
-        delete :destroy_all # カートを空にするルート
-      end
-    end
 
   get 'homes/top'
   get 'homes/about'
-
-  root :to =>"public/homes#top"
-  get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
 
  end
 
-# 顧客用
-# URL /customers/sign_in ...
-  devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
 
-  # 管理者用
-  # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
-    sessions: "admin/sessions"
-  }
 end
