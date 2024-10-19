@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # 顧客用
 
   # URL /customers/sign_in ...
@@ -49,8 +50,9 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-    resources :genres
-    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :customers, only: [:index, :edit, :update, :show]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
@@ -77,6 +79,4 @@ Rails.application.routes.draw do
   # get "items/:id"=>"public/items#show"
 
  end
-
-
 end
