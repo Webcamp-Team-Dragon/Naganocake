@@ -33,9 +33,7 @@ Rails.application.routes.draw do
     get 'genres/:id', to: 'admin/genres#show', as: :genre
 
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-  end
 
-  namespace :public do
     get 'orders/new'
     get 'orders/confirm'
     get 'orders/thanks'
