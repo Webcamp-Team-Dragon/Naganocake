@@ -8,10 +8,12 @@ class Public::CustomersController < ApplicationController
   end
 
   def update
-    customer = current_customer
-    customer.assign_attributes(customer_params.except(:password, :password_confirmation))
-    customer.save(validate: false)
-    redirect_to public_customers_show_path
+    @customer = current_customer
+    if @customer.update(customer_params)
+      redirect_to customer_path(current_customer)
+    else
+      render 'edit'
+    end
   end
 
   def unsubscribe
