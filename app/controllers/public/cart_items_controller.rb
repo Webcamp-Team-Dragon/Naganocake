@@ -2,18 +2,30 @@ class Public::CartItemsController < ApplicationController
 
   # GET	/cart_items
   def index
+    @cart_items = current_customer.cart_items.includes(:item) # 現在の顧客のカートアイテムを取得
   end
 
 # PATCH	/cart_items/:id
   def update
+    @cart_item = CartItem.find(params[:id])
+    if @cart_item.update(amount: params[:amount]) # 数量を更新
+      redirect_to public_cart_items_path, notice: '数量が更新されました'
+    else
+      redirect_to public_cart_items_path, alert: '数量の更新に失敗しました'
+    end
   end
 
 # DELETE	/cart_items/:id
   def destroy
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.destroy
+    redirect_to public_cart_items_path, notice: '商品がカートから削除されました' # カートの一覧ページにリダイレクト
   end
 
 # DELETE	/cart_items/destroy_all
   def destroy_all
+    current_customer.cart_items.destroy_all # 現在の顧客のカートアイテムをすべて削除
+    redirect_to public_cart_items_path, notice: 'カートが空になりました'
   end
 
 # POST	/cart_items

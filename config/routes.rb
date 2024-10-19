@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get 'genres/update'
 
    resources :items, only: [:show, :index, :new, :create, :edit, :update]
-    
+
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
 
@@ -47,8 +47,12 @@ Rails.application.routes.draw do
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
-    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
- 
+    resources :cart_items, only: [:index, :update, :destroy, :create] do
+      collection do
+        delete :destroy_all # カートを空にするルート
+      end
+    end
+
   get 'homes/top'
   get 'homes/about'
 
@@ -56,7 +60,7 @@ Rails.application.routes.draw do
   get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
  end
-    
+
 # 顧客用
 # URL /customers/sign_in ...
   devise_for :customers,skip: [:passwords], controllers: {
