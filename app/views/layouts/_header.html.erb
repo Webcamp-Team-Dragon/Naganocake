@@ -14,7 +14,7 @@
          <%= link_to "マイページ", root_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
         </li>
         <li class="nav-item">
-         <%= link_to "商品一覧", root_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
+         <%= link_to "商品一覧", public_items_path, class: 'btn btn-outline-secondary mx-3 my-1' %>
         </li>
         <li class="nav-item">
          <%= link_to "カート", home_about_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
@@ -26,7 +26,7 @@
         <% elsif admin_signed_in? %>
        <!-- 管理者がログインしている時 -->
         <li class="nav-item">
-         <%= link_to "商品一覧", root_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
+         <%= link_to "商品一覧", root_path, class: 'btn btn-outline-secondary mx-3 my-1' %>
         </li>
         <li class="nav-item">
          <%= link_to "会員一覧", root_path,class: 'btn btn-outline-secondary mx-3 my-1' %>
@@ -59,20 +59,7 @@
       <% end %>
       </ul>
 
-<<<<<<< HEAD
-        <%= link_to "about", home_about_path %>
-        <%= link_to "商品一覧", public_items_path %>
-        <%= link_to "新規登録", new_customer_registration_path %>
-        <%= link_to "ログイン", new_customer_session_path %>
-        <% if customer_signed_in? %>
-          <p>ログイン済み</p>
-        <% else %>
-          <p>未ログイン</p>
-        <% end %>
-    	</div>
-    </div>
-=======
->>>>>>> develop
+
   </div>
   </nav>
 </header>
