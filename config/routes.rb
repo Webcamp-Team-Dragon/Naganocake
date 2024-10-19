@@ -13,12 +13,7 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-    get 'items/index'
-    get 'items/new'
-    get 'items/create'
-    get 'items/show'
-    get 'items/edit'
-    get 'items/update'
+   resources :items, only: [:show, :index, :new, :create, :edit, :update]
     
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
