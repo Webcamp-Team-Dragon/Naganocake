@@ -24,8 +24,8 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-
-   resources :items, only: [:show, :index, :new, :create, :edit, :update]
+    resources :genres
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
 
      get '/' => 'homes#top'
      root :to =>"admin/homes#top"
@@ -35,18 +35,17 @@ Rails.application.routes.draw do
   namespace :public do
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
-
+    # get 'addresses/index'
+    # get 'addresses/edit'
+    # get 'addresses/create'
+    # get 'addresses/update'
+    # get 'addresses/destroy'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-
-    get 'addresses/index'
-    get 'addresses/edit'
-    get 'addresses/create'
-    get 'addresses/update'
-    get 'addresses/destroy'
-
+    
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
+
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete :destroy_all # カートを空にするルート
@@ -59,6 +58,7 @@ Rails.application.routes.draw do
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
+
  end
 
 # 顧客用

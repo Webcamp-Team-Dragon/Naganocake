@@ -1,6 +1,6 @@
 <div class="container">
   <h4 class="m-4"><span style="background-color:#eeeeee">商品詳細</span></h4>
-  <%= attachment_image_tag @item, :image, size: "300x300", fallback: "no_image.jpg"%>
+   <%= image_tag @items.get_image %>
 </div>
 
     <div class="container">
