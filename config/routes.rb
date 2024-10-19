@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "home/about"=>"public/homes#about"
 
   scope module: :public do
-    resources :orders
+    resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
     get 'orders/confirm'
     get 'orders/thanks'
     get 'genres', to: 'admin/genres#index', as: :genres
@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update]
     resources :genres
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :items, only: [:index, :show]
     resources :customers
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
@@ -36,6 +35,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
 
   namespace :admin do
     get 'order_details/update'
@@ -51,5 +51,5 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-  end
+ end
 end
