@@ -42,9 +42,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :telephone_number, :address])
-  end
+   def configure_sign_up_params
+     devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :telephone_number, :address])
+   end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -61,14 +61,4 @@ class Public::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def update
-    resource = current_customer
-    resource.update_without_password(customer_params)
-    redirect_to public_customers_show_path
-  end
-
-  private
-  def customer_params
-    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)
-  end
 end
