@@ -1,7 +1,20 @@
 Rails.application.routes.draw do
+  # 顧客用
+  # URL /customers/sign_in ...
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  # 管理者用
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
+  root :to =>"public/homes#top"
 
   scope module: :public do
-    resources :orders
+    resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
     get 'orders/confirm'
     get 'orders/thanks'
   end
@@ -41,7 +54,7 @@ Rails.application.routes.draw do
     # get 'addresses/update'
     # get 'addresses/destroy'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-    
+
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :items, only: [:index, :show]
@@ -55,22 +68,11 @@ Rails.application.routes.draw do
   get 'homes/top'
   get 'homes/about'
 
-  root :to =>"public/homes#top"
+
   get "home/about"=>"public/homes#about"
   # get "items/:id"=>"public/items#show"
 
  end
 
-# 顧客用
-# URL /customers/sign_in ...
-  devise_for :customers,skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
-  }
 
-  # 管理者用
-  # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
-    sessions: "admin/sessions"
-  }
 end
