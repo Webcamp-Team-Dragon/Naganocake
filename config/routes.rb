@@ -1,33 +1,34 @@
 Rails.application.routes.draw do
-
   # 顧客用
-
   # URL /customers/sign_in ...
-
   devise_for :customers,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-
   # 管理者用
   # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
 
+  get 'homes/top'
+  get 'homes/about'
   root :to =>"public/homes#top"
   get "home/about"=>"public/homes#about"
-
 
   scope module: :public do
     resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
     get 'orders/confirm'
     get 'orders/thanks'
-  end
-
-  scope module: :public do
+    get 'genres', to: 'admin/genres#index', as: :genres
+    get 'genres/:id', to: 'admin/genres#show', as: :genre
+    get 'customers/unsubscribe'
+    get 'customers/withdraw'
+    resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :customers, only: [:show, :edit, :update]
-    resources :items, only: [:index, :show]
+    resources :genres
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :customers
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete :destroy_all # カートを空にするルート
@@ -50,33 +51,5 @@ Rails.application.routes.draw do
     get 'genres/create'
     get 'genres/edit'
     get 'genres/update'
-    resources :customers, only: [:index, :edit, :update, :show]
-    resources :genres, only: [:index, :create, :edit, :update]
-    resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-
-     get '/' => 'homes#top'
-     root :to =>"admin/homes#top"
-
-  end
-
-  namespace :public do
-    get 'genres', to: 'admin/genres#index', as: :genres
-    get 'genres/:id', to: 'admin/genres#show', as: :genre
-    # get 'addresses/index'
-    # get 'addresses/edit'
-    # get 'addresses/create'
-    # get 'addresses/update'
-    # get 'addresses/destroy'
-    resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-
-    get 'customers/unsubscribe'
-    get 'customers/withdraw'
-
-
-  get 'homes/top'
-  get 'homes/about'
-
-  # get "items/:id"=>"public/items#show"
-
  end
 end

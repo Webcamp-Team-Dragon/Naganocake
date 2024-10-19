@@ -11,30 +11,48 @@
     </div>
 
 
-    <h3>お届け先</h3>
-    <!--, Address.where(customer_id: current_customer.id).pluck(:id).first-->
-    <div>
-      <%= f.radio_button :address, current_customer.address, checked: true %>
-      <%= f.label :address, "ご自身の住所" %>
-    </div>
-    <div>
-      〒<%= current_customer.postal_code + "　" + current_customer.address %>
-      <%= current_customer.last_name + current_customer.first_name %>
-    </div>
-    <div>
-      <%= f.radio_button :address, current_customer.address %>
-      <%= f.label :address, "登録済住所から選択" %>
-    </div>
-    <div>
-      <%= f.radio_button :address, current_customer.address %>
-      <%= f.label :address, "新しいお届け先" %>
-      <div>
-        <p>郵便番号(ハイフンなし）</p>
-        <div class="row">
-          <div class="col-md-2">
-            <%= f.text_field :new_postal_code, placeholder: "例: 1234567", class: "form-control col-md-2" %>
-          </div>
-        </div>
+------kenn↓
+           
+           
+           
+  <h3>お届け先</h3>
+  <div>
+    <%= f.radio_button :address, current_customer.address, checked: true %>
+    <%= f.label :address, "ご自身の住所" %>
+  </div>
+  <div>〒<%= current_customer.postal_code + "　" + current_customer.address %></div>
+  <div><%= current_customer.last_name + current_customer.first_name %></div>
+  <div>
+    <%= f.radio_button :address, [:registered_address] %>
+    <%= f.label :address, "登録済住所から選択" %>
+  </div>
+  <div><%= f.collection_select :address, @addresses, :id, :address %></div>
+
+  <div>
+    <%= f.radio_button :address, "new_address" %>
+    <%= f.label :address, "新しいお届け先" %>
+  </div>
+  <div>
+    <p>郵便番号(ハイフンなし)</p>
+    <%= f.text_field :new_postal_code %>
+  </div>
+  <div>
+    <p>住所</p>
+    <%= f.text_field :new_address %>
+  </div>
+  <div>
+    <p>宛名</p>
+    <%= f.text_field :new_name %>
+  </div>
+
+  <%= f.submit "確認画面へ進む" %>
+<% end %>
+
+
+
+=======
+
+
 
         <div class="row">
           <div class="col-md-10">
@@ -46,3 +64,7 @@
     </div>
     <% end %>
   </div>
+
+
+
+-------develop↑
