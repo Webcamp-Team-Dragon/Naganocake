@@ -6,6 +6,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
+    @customer = current_customer
+    @cart_items = @customer.cart_items
   end
 
   def thanks

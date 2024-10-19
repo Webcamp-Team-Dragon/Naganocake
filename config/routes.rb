@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  scope module: :public do
+    resources :orders
+    get 'orders/confirm'
+    get 'orders/thanks'
+  end
+
   namespace :admin do
     get 'order_details/update'
     get 'orders/show'

@@ -64,14 +64,14 @@
       <th>(編集と削除ボタン)</th>
     </tr>
   </thead>
-  <% @addresses.each do |f| %>
-    <tbody>
+  <tbody>
+    <% @addresses.each do |f| %>
       <tr>
         <td><%= f.postal_code %></td>
         <td><%= f.address %></td>
         <td><%= f.name %></td>
         <td></td>
       </tr>
-    </tbody>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>
