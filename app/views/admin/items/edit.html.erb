@@ -1,11 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1">
-    <%= form_with model: @items,url: admin_items_path, method: :post do |f| %>
-     <h2>商品編集</h2>
+    <%= form_with model: @items, url: admin_item_path, method: :patch do |f| %>
       <table>
         <tr>
-          <div class="form-group">
+          <div class="item-new-form">
             <th><%= f.label :商品画像 %></th>
             <th><%= f.file_field :image, accept: "image/*" %></th>
           </div>
