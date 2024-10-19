@@ -6,6 +6,7 @@ class Public::AddressesController < ApplicationController
   end
 
   def edit
+    @addresses = Address.all
   end
 
   def create

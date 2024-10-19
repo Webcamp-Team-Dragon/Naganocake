@@ -15,7 +15,7 @@
     </tr>
   </thead>
 
-<%= form_with model: Address.new, url: public_addresses_path do |f| %>
+<%= form_with model: @address, url: addresses_path do |f| %>
   <tbody>
     <tr>
       <td>
@@ -70,7 +70,10 @@
         <td><%= f.postal_code %></td>
         <td><%= f.address %></td>
         <td><%= f.name %></td>
-        <td></td>
+        <td>
+          <%= link_to "編集する", edit_address_path(f) %>
+          <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

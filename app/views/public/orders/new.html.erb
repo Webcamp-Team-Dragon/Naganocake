@@ -1,7 +1,7 @@
 <h1>Public::Orders#new, 注文情報入力画面(支払方法・配送先の選択)</h1>
 <p>Find me in app/views/public/orders/new.html.erb</p>
 
-<%= form_with model: @order, url: public_orders_confirm_path, method: :get do |f|  %>
+<%= form_with model: @order, url: orders_confirm_path, method: :get do |f|  %>
   <h3>注文情報入力</h3>
   <div>
     <%= f.radio_button :pay_method, 0, checked: true %>
