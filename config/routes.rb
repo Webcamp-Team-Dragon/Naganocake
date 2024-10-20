@@ -28,7 +28,6 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update]
     resources :genres
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :items, only: [:index, :show]
     resources :customers
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
