@@ -1,13 +1,27 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
-    @address = current_customer.address
-    @addresses = Address.all
+    @address = current_customer.address  # ログインしているユーザーの住所
+    @addresses = Address.all   # 登録済みの全住所
   end
 
   def confirm
-    @customer = current_customer
-    @cart_items = @customer.cart_items
+    @order = Order.new(order_params)
+    # ラジオボタンの選択に応じて住所情報を反映
+    if @order.address_type == "self"
+      @order.name = current_customer.last_name + current_customer.first_name
+      @order.address = current_customer.address
+      @order.postal_code = current_customer.postal_code
+    elsif @order.address_type == "registered"
+      selected_address = Address.find(@order.registered_address)
+      @order.name = selected_address.name
+      @order.address = selected_address.address
+      @order.postal_code = selected_address.postal_code
+    elsif @order.address_type == "new"
+      @order.name = @order.new_name
+      @order.address = @order.new_address
+      @order.postal_code = @order.new_postal_code
+    end
   end
 
   def thanks

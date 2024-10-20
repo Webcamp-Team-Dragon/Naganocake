@@ -11,19 +11,21 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  get 'homes/top'
-  get 'homes/about'
-  root :to =>"public/homes#top"
-  get "home/about"=>"public/homes#about"
+  # get 'homes/top'
+  # get 'homes/about'
+
+  # get "home/about"=>"public/homes#about"
 
   scope module: :public do
-    resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
+    root :to =>"public/homes#top"
     get 'orders/confirm'
     get 'orders/thanks'
+    resources :orders, only: [:create, :index, :new, :show]
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
     get 'customers/unsubscribe'
     get 'customers/withdraw'
+    get 'homes/about'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :customers, only: [:show, :edit, :update]
     resources :genres
