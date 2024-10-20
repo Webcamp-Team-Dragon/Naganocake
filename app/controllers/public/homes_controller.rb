@@ -1,6 +1,7 @@
 class Public::HomesController < ApplicationController
   # GET	/
   def top
+    
   end
 
 # GET	/about
