@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root :to => "homes#top"
     get "about" => "homes#about"
-    resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
     get 'orders/confirm'
     get 'orders/thanks'
+    resources :orders, only: [:create, :index, :new, :show]
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
     get 'customers/my_page', to: 'customers#show'
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     patch 'customers/information', to: 'customers#update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
+    get 'homes/about'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :genres
     resources :items, only: [:index, :new, :create, :show, :edit, :update]

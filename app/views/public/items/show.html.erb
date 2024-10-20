@@ -1,10 +1,10 @@
 <div class='container'>
   <div class='row'>
     <%= render 'public/items/sidebar', genres: @genres %>
-    <div class='col-md-3'>
+    <div class='col-xl-4 col-md-4 text-center'>
       <%= image_tag url_for(@item.image.variant(resize_to_limit: [200, 200])) %>
     </div>
-    <div class='col-md-6'>
+    <div class='col-xl-6 col-md-6'>
       <p><strong><%= @item.name %></strong></p>
       <p><%= @item.introduction %></p>
       <p><%= @item.price %>円(税込)</p>
@@ -30,6 +30,7 @@
         <%= f.submit "カートに入れる", class: "btn btn-primary" %>
       <% end %>
 
+        </div>
     </div>
   </div>
 </div>
