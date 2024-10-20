@@ -11,8 +11,6 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     # @order.payment_method = params[:order][:payment_method]
     @order.shipping_cost = 800
-    # @order.total_payment
-    @payment_method_str = Order.payment_methods.key(@order.payment_method)
   end
 
   def thanks

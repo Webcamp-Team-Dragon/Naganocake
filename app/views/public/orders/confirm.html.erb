@@ -41,13 +41,13 @@
       <th><%= total_payment %></th>
     </tr>
   </table>
-  
+
   <b>支払い方法</b>
   <p><%= Order.payment_methods_i18n[@order.payment_method] %></p>
-  
+
   <b>お届け先</b>
-  
+
   <%= params[:order][:address] %>
-  
+
   <p><%= @customer.last_name + @customer.first_name %></p>
 <% end %>
