@@ -1,25 +1,28 @@
-<h1>Public::Orders#confirm, 注文情報確認画面</h1>
 <p>Find me in app/views/public/orders/confirm.html.erb</p>
 
-<h3>注文情報確認画面</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>表示名</th>
-      <th>単価(税込)</th>
-      <th>数量</th>
-      <th>小計</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @cart_items.each do |f| %>
+<!--商品名/単価/数量/小計テーブル-->
+<div class="container">
+  <h5 class='ml-5'>注文情報確認</h5>
+  <table>
+    <thead>
       <tr>
-        <td><%= f.item_id.name %></td>
-        <td><%= f.item_id.price %></td>
-        <td><%= f.amount %></td>
-        <td><%= f.item_id.price * f.amount %></td>
+        <th>表示名</th>
+        <th>単価(税込)</th>
+        <th>数量</th>
+        <th>小計</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |f| %>
+        <tr>
+          <td><%= f.item.name %></td>
+          <td><%= f.item.price %></td>
+          <td><%= f.amount %></td>
+          <td><%= f.item.price * f.amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!--送料/商品合計/請求金額テーブル-->

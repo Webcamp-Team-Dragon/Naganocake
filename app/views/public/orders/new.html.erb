@@ -5,12 +5,12 @@
 <!--支払方法選択欄-->
   <h5><strong>支払方法</strong></h5>
   <div>
-    <%= f.radio_button :pay_method, 0, checked: true, class: 'ml-4' %>
-    <%= f.label :pay_method, "クレジットカード" %><br>
+    <%= f.radio_button :payment_method, "credit_card", checked: true, class: 'ml-4' %>
+    <%= f.label :payment_method, "クレジットカード" %><br>
   </div>
   <div>
-    <%= f.radio_button :pay_method, 1, class: 'ml-4'  %>
-    <%= f.label :pay_method, "銀行振込" %>
+    <%= f.radio_button :payment_method, "bank_transfer", class: 'ml-4'  %>
+    <%= f.label :payment_method, "銀行振込" %>
   </div>
 <!--お届け先選択欄-->
   <h5><strong>お届け先</strong></h5>
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-<div class="d-flex justify-content-center my-2">
+<div class="d-flex justify-content-center my-3">
   <%= f.submit "確認画面へ進む", class: "btn btn-primary" %>
 </div>
 <% end %>
