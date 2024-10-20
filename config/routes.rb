@@ -11,24 +11,22 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  get 'homes/top'
-  get 'homes/about'
-  root :to =>"public/homes#top"
-  get "home/about"=>"public/homes#about"
-
   scope module: :public do
+    root :to => "homes#top"
+    get 'homes/about'
     resources :orders, only: [:confirm, :create, :index, :new, :show, :thanks]
     get 'orders/confirm'
     get 'orders/thanks'
     get 'genres', to: 'admin/genres#index', as: :genres
     get 'genres/:id', to: 'admin/genres#show', as: :genre
+    get 'customers/my_page', to: 'customers#show'
+    get 'customers/information/edit', to: 'customers#edit'
+    patch 'customers/information', to: 'customers#update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-    resources :customers, only: [:show, :edit, :update]
     resources :genres
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :customers
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete :destroy_all # カートを空にするルート
@@ -36,20 +34,13 @@ Rails.application.routes.draw do
     end
   end
 
-
   namespace :admin do
+    root :to => 'homes#top'
     get 'order_details/update'
     get 'orders/show'
     get 'orders/update'
-    get 'homes/top'
-    get 'homes/about'
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/update'
-    get 'genres/index'
-    get 'genres/create'
-    get 'genres/edit'
-    get 'genres/update'
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
  end
 end
