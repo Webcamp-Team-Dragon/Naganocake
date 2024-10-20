@@ -13,8 +13,10 @@ class Admin::ItemsController < ApplicationController
   def create
    @item = Item.new(item_params)
     if @item.save
+   flash[:notice] = ' 登録成功！'   
     redirect_to admin_item_path(@item.id)
     else
+   flash[:notice] = ' 登録エラー！'
     render :new
     end
   end
@@ -33,9 +35,11 @@ class Admin::ItemsController < ApplicationController
   def update
   @items = Item.find(params[:id])
    if @items.update(item_params)
-       redirect_to admin_item_path(@items)
+    flash[:notice] = ' 更新成功！'    
+    redirect_to admin_item_path(@items)
    else
-       redirect_to admin_item_path(@items)
+    flash[:notice] = ' 更新エラー！'
+    redirect_to admin_item_path(@items)
    end
   end
 

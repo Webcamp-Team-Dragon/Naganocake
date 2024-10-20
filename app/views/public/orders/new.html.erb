@@ -1,18 +1,20 @@
-<h1>Public::Orders#new, 注文情報入力画面(支払方法・配送先の選択)</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
-
-<%= form_with model: @order, url: orders_confirm_path, method: :get do |f|  %>
-  <h3>注文情報入力</h3>
-  <div>
-    <%= f.radio_button :pay_method, 0, checked: true %>
-    <%= f.label :pay_method, "クレジットカード" %>
-  </div>
-  <div>
-    <%= f.radio_button :pay_method, 1 %>
-    <%= f.label :pay_method, "銀行振込" %>
-  </div>
+<div class="container mt-3">
+  <%= form_with model: @order, url: orders_confirm_path, method: :get do |f|  %>
+    <h3>注文情報入力</h3>
+    <div>
+      <%= f.radio_button :pay_method, 0, checked: true %>
+      <%= f.label :pay_method, "クレジットカード" %>
+    </div>
+    <div>
+      <%= f.radio_button :pay_method, 1 %>
+      <%= f.label :pay_method, "銀行振込" %>
+    </div>
 
 
+------kenn↓
+           
+           
+           
   <h3>お届け先</h3>
   <div>
     <%= f.radio_button :address, current_customer.address, checked: true %>
@@ -45,3 +47,24 @@
 
   <%= f.submit "確認画面へ進む" %>
 <% end %>
+
+
+
+=======
+
+
+
+        <div class="row">
+          <div class="col-md-10">
+        <p>住所</p>
+        <%= f.text_field :new_address, placeholder: "例: 東京都渋谷区...", class: "form-control col-md-4" %>
+        <p>宛名</p>
+        <%= f.text_field :new_recipient_name, placeholder: "例: 山田太郎", class: "form-control col-md-2" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+
+
+-------develop↑
