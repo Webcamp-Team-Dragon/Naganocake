@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     patch 'customers/information', to: 'customers#update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
-    get 'homes/about'
+    resources :orders, only: [:create, :index, :new, :show]
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :genres
     resources :items, only: [:index, :new, :create, :show, :edit, :update]

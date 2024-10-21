@@ -8,19 +8,24 @@ class Public::OrdersController < ApplicationController
   def confirm
     @customer = current_customer
     @cart_items = @customer.cart_items
+    @order = Order.new
+    # @order.payment_method = params[:order][:payment_method]
+    @order.shipping_cost = 800
+    # @payment_method_str = Order.payment_methods.key(@order.payment_method)
   end
 
   def thanks
   end
 
   def create
+    @customer = current_customer
+    @cart_items = @customer.cart_items
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @address = Address.new(address_params)
-    @address.customer_id = current_customer.id
-    @address.save
+    # @address = Address.new(address_params)
+    # @address.customer_id = current_customer.id
     if @order.save
-      redirect_to public_orders_confirm
+      redirect_to orders_thanks_path
     else
       redirect_to request.referer
     end
@@ -38,12 +43,16 @@ class Public::OrdersController < ApplicationController
   end
 
   private
+
   def order_params
-    params.require(:order).permit(:name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
+  order_params = params.require(:order).permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
+  order_params[:payment_method] = order_params[:payment_method].to_i if order_params.key?(:payment_method)
+  order_params[:status] = order_params[:status].to_i if order_params.key?(:status)
+  order_params.permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
   end
 
-  def address_params
-    params.require(:address).permit(:postal_code, :address, :name)
-  end
+  # def address_params
+  #   params.require(:address).permit(:customer_id, :postal_code, :address, :name)
+  # end
 
 end
