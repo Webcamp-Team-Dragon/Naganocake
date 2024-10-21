@@ -54,6 +54,7 @@ class Public::OrdersController < ApplicationController
     order_detail_params
   end
 
+
   # def address_params
   #   params.require(:address).permit(:customer_id, :postal_code, :address, :name)
   # end
