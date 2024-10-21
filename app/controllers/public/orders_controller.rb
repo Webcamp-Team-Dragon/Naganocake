@@ -25,17 +25,15 @@ class Public::OrdersController < ApplicationController
     if @order.save
        @order_detail = @order.order_details.build(order_detail_params)
        @order_detail.save
-      @cart_items.each do |cart_item|
-        @order.order_details.create(
+       @cart_items.each do |cart_item|
+         @order.order_details.create(
           item_id: cart_item.item_id,
           price: cart_item.item.price,
           amount: cart_item.amount
         )
       end
-
       # カートを空にする処理（注文が完了した後はカートをクリア）
       @cart_items.destroy_all
-
       redirect_to orders_thanks_path
     else
       redirect_to request.referer
@@ -48,7 +46,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = current_customer.orders.find_by(id: params[:id])
+    @order = Order.find(params[:id])
     @order_details = @order.order_details.includes(:item)
   end
 
@@ -61,12 +59,15 @@ class Public::OrdersController < ApplicationController
     order_params.permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
   end
 
-  def order_detail_params
-    order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
-    order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
-    order_detail_params
-  end
+  # def order_detail_params
+  #   order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
+  #   order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
+  #   order_detail_params
+  # end
 
+  def order_detail_params
+    params.require(:order).permit(order_details: [:item_id, :amount, :price, :making_status])
+  end
 
   # def address_params
   #   params.require(:address).permit(:customer_id, :postal_code, :address, :name)
