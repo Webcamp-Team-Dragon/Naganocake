@@ -36,9 +36,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = current_user.orders.find_by(id: params[:id])
+    @order = current_customer.orders.find_by(id: params[:id])
     if @order.nil?
-      redirect_to public_orders_path, alert: "指定された注文は存在しません。"
+      redirect_to orders_path, alert: "指定された注文は存在しません。"
     end
   end
 
