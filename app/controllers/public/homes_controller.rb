@@ -1,7 +1,7 @@
 class Public::HomesController < ApplicationController
   # GET	/
   def top
-    @items = Item.where(is_active: true).order(created_at: "DESC").limit(4)
+　Item.where(is_active: true).order(created_at: "DESC").limit(4)
   end
 
 # GET	/about
