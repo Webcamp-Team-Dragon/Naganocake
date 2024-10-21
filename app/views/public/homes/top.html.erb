@@ -10,14 +10,14 @@
  </div>
 
  <div class="col-xl-8 col-md-6">
-   <div class="d-flex justify-content-center" style="text-align: center; margin-right: 10px;">
+   <div class="d-flex justify-content-center" style="text-align: center; padding-top: 30px; margin-right: 50px;">
      <h3>新着商品</h3>
    </div>
  </div>
  <div class="col-xl-12 col-md-12">
    <div class="d-flex justify-content-center flex-wrap">
     <% @items.each do |item| %>
-      <div class="box" style="float:left; margin-right:20px;">
+      <div class="box" style="float:left; margin-right:30px;">
         <%= link_to item_path(item.id) do %>
           <%= image_tag url_for(item.image.variant(resize_to_limit: [100, 100])) %><br>
         <% end %>
@@ -28,7 +28,5 @@
       </div>
     <% end %>
   </div>
-
    </div>
  </div>
-</div>
