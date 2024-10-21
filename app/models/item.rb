@@ -16,6 +16,10 @@ class Item < ApplicationRecord
         (self.price * 1.10).round
     end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['name']
+  end
+
   def get_image
    unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
