@@ -1,2 +1,29 @@
 <h1>Public::Orders#index, 注文履歴画面</h1>
 <p>Find me in app/views/public/orders/index.html.erb</p>
+
+<% @orders.each do |f| %>
+<div>
+  <%= f.customer_id %>
+  <%= f.name %>
+  <%= f.address %>
+  <%= f.postal_code %>
+  <%= f.payment_method %>
+  <%= f.total_payment %>
+  <%= f.shipping_cost %>
+  <%= f.status %>
+
+  <% f.order_details.each do |order_detail| %>
+    <%= order_detail.item_id %>
+  <% end %>
+
+</div>
+<% end %>
+
+<% @order_details.each do |order_detail| %>
+  <div>
+    <p>商品名: <%= order_detail.item.name %></p>
+    <p>価格: <%= order_detail.price %></p>
+    <p>数量: <%= order_detail.amount %></p>
+    <p>製作ステータス: <%= order_detail.making_status %></p>
+  </div>
+<% end %>

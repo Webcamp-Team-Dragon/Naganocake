@@ -9,9 +9,7 @@ class Public::OrdersController < ApplicationController
     @customer = current_customer
     @cart_items = @customer.cart_items
     @order = Order.new
-    # @order.payment_method = params[:order][:payment_method]
     @order.shipping_cost = 800
-    # @payment_method_str = Order.payment_methods.key(@order.payment_method)
   end
 
   def thanks
@@ -25,6 +23,8 @@ class Public::OrdersController < ApplicationController
     # @address = Address.new(address_params)
     # @address.customer_id = current_customer.id
     if @order.save
+       @order_detail = @order.order_details.build(order_detail_params)
+       @order_detail.save
       redirect_to orders_thanks_path
     else
       redirect_to request.referer
@@ -32,6 +32,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = Order.all
+    @order_details = OrderDetail.all
   end
 
   def show
@@ -40,10 +42,16 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-  order_params = params.require(:order).permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
-  order_params[:payment_method] = order_params[:payment_method].to_i if order_params.key?(:payment_method)
-  order_params[:status] = order_params[:status].to_i if order_params.key?(:status)
-  order_params.permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
+    order_params = params.require(:order).permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
+    order_params[:payment_method] = order_params[:payment_method].to_i if order_params.key?(:payment_method)
+    order_params[:status] = order_params[:status].to_i if order_params.key?(:status)
+    order_params.permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
+  end
+
+  def order_detail_params
+    order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
+    order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
+    order_detail_params
   end
 
   # def address_params

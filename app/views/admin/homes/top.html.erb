@@ -1,3 +1,7 @@
 <h1>Admin::Homes#top, 管理者トップページ(注文履歴一覧)</h1>
 <%= link_to "・商品新規登録", new_admin_item_path %>
 
+
+<%= @orders.each do |f| %>
+  <div><%= f.address %></div>
+<% end %>

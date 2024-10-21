@@ -36,6 +36,10 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
+    root :to =>"homes#top"
+    # resources :items
+    # resources :customers
+    # resources :genres
     get 'order_details/update'
     get 'orders/show'
     get 'orders/update'
