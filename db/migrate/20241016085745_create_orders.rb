@@ -1,6 +1,7 @@
 class CreateOrders < ActiveRecord::Migration[6.1]
   def change
     create_table :orders do |t|
+      t.string :customer_id, null: false
       t.string :name, null: false   #配送先名
       t.string :address, null: false   #配送先住所
       t.string :postal_code, null: false   #配送郵便番号

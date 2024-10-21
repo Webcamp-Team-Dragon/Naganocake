@@ -25,7 +25,7 @@
 </table>
 <% end %>
 
-<%= form_with model: @order, url: orders_confirm_path do |f|%>
+<%= form_with model: @order, url: orders_path do |f| %>
   <table>
     <tr>
       <th>送料</th>
@@ -46,8 +46,21 @@
   <p><%= Order.payment_methods_i18n[@order.payment_method] %></p>
 
   <b>お届け先</b>
-
-  <%= params[:order][:address] %>
-
+  <!--%= params[:order][:address] %>-->
   <p><%= @customer.last_name + @customer.first_name %></p>
+
+  <%= f.hidden_field :customer_id, value: current_customer.id %>
+  <%= f.hidden_field :name, value: current_customer.last_name %>
+  <%= f.hidden_field :address, value: current_customer.address %>
+  <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
+  <%= f.hidden_field :payment_method, value: @order.payment_method.to_i %>
+  <%= f.hidden_field :total_payment, value: total_payment %>
+  <%= f.hidden_field :shipping_cost, value: 800 %>
+  <%= f.hidden_field :status, value: 0 %>
+
+
+@order.shipping_cost = 800
+    @order.status = 0
+  <%= f.submit '注文を確定する'  %>
+
 <% end %>
