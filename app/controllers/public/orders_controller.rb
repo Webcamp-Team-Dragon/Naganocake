@@ -25,6 +25,17 @@ class Public::OrdersController < ApplicationController
     # @address = Address.new(address_params)
     # @address.customer_id = current_customer.id
     if @order.save
+      @cart_items.each do |cart_item|
+        @order.order_details.create(
+          item_id: cart_item.item_id,
+          price: cart_item.item.price,
+          amount: cart_item.amount
+        )
+      end
+
+      # カートを空にする処理（注文が完了した後はカートをクリア）
+      @cart_items.destroy_all
+
       redirect_to orders_thanks_path
     else
       redirect_to request.referer
@@ -36,10 +47,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = current_user.orders.find_by(id: params[:id])
-    if @order.nil?
-      redirect_to public_orders_path, alert: "指定された注文は存在しません。"
-    end
+    @order = current_customer.orders.find_by(id: params[:id])
+    @order_details = @order.order_details.includes(:item)
   end
 
   private

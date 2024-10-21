@@ -1,34 +1,79 @@
-<h1>注文履歴 詳細</h1>
 
-<%# if @order.present? %>
-  <div>
-    <p><strong>注文日:</strong> <%#= @order.created_at.strftime('%Y-%m-%d') %></p>
-    <p><strong>配送先:</strong> <%#= @order.delivery_address %></p>
-    <p><strong>ステータス:</strong> <%#= @order.status %></p>
-    <p><strong>支払金額:</strong> <%#= number_to_currency(@order.total_price) %></p>
+<div class='container'>
+  <h3 style="margin: 20px 0 20px 50px;">注文情報詳細</h3>
+</div>
+
+<div class='container'>
+  <div class="row">
+    <div class="col-md-7">
+      <h5><strong>注文情報</strong></h5>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="align-middle col-md-3" style="background-color: #f5f5f5;">注文日</td>
+            <td class="align-middle"><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+          </tr>
+          <tr>
+            <td class="align-middle" style="background-color: #f5f5f5;">配送先</td>
+            <td class="align-middle">
+              <%= "〒"+@order.postal_code %><br>
+              <%= @order.address %><br>
+              <%= @order.name %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle" style="background-color: #f5f5f5;">支払方法</td>
+            <td class="align-middle"><%= @order.payment_method %></td>
+          </tr>
+          <tr>
+            <td class="align-middle" style="background-color: #f5f5f5;">ステータス</td>
+            <td class="align-middle"><%= @order.status %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <h5><strong>請求情報</strong></h5>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="align-middle col-md-6" style="background-color: #f5f5f5;">商品合計</td>
+            <td class="align-middle"><%= number_to_currency(@order.total_payment, delimiter: ',', unit: '', precision: 0) %></td>
+          </tr>
+          <tr>
+            <td class="align-middle" style="background-color: #f5f5f5;">配送料</td>
+            <td class="align-middle"><%= number_to_currency(@order.shipping_cost, delimiter: ',', unit: '', precision: 0) %></td>
+          </tr>
+          <tr>
+            <td class="align-middle" style="background-color: #f5f5f5;"><strong>ご請求額</strong></td>
+            <td class="align-middle"><%= number_to_currency(@order.shipping_cost + @order.total_payment, delimiter: ',', unit: '', precision: 0) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
 
-  <h2>注文商品</h2>
-  <table class="table">
-    <thead>
+<div class='container'>
+  <h5><strong>注文内容確認</strong></h5>
+  <table class="table table-bordered">
+    <thead style="background-color: #f5f5f5">
       <tr>
-        <th>商品名</th>
-        <th>数量</th>
-        <th>価格</th>
+        <th>商品</th>
+        <th>単価（税込）</th>
+        <th>個数</th>
+        <th>小計</th>
       </tr>
     </thead>
     <tbody>
-      <%# @order_details.each do |detail| %>
-        <tr>
-          <td><%#= detail.item.name %></td>
-          <td><%#= detail.amount %></td>
-          <td><%#= number_to_currency(detail.price) %></td>
-        </tr>
-      <%# end %>
+      <% @order.order_details.each do |order_detail| %>
+      <tr>
+        <td><%= order_detail.item.name %></td> <!-- 商品名 -->
+        <td><%= number_to_currency(order_detail.price, delimiter: ',', unit: '', precision: 0) %></td> <!-- 単価 -->
+        <td><%= order_detail.amount %></td>
+        <td><%= number_to_currency(order_detail.price * order_detail.amount, delimiter: ',', unit: '', precision: 0) %></td>
+      </tr>
+      <% end %>
     </tbody>
   </table>
-
-  <%#= link_to '戻る', public_orders_path, class: 'btn btn-secondary' %>
-<%# else %>
-  <p>注文が見つかりません。</p>
-<%# end %>
+</div>
