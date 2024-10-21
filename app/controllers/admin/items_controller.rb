@@ -1,7 +1,8 @@
 class Admin::ItemsController < ApplicationController
+  before_action :authenticate_admin!
   # GET	/admin/items
   def index
-   @items = Item.all
+  @items = Item.page(params[:page])
   end
 
 # GET	/admin/items/new
@@ -13,10 +14,10 @@ class Admin::ItemsController < ApplicationController
   def create
    @item = Item.new(item_params)
     if @item.save
-   flash[:notice] = ' 登録成功！'   
+   flash[:notice] = '登録成功！'   
     redirect_to admin_item_path(@item.id)
     else
-   flash[:notice] = ' 登録エラー！'
+   flash[:notice] = '登録エラー！'
     render :new
     end
   end

@@ -1,7 +1,11 @@
-<h3 class="m-4"><span style="background-color:#eeeeee">会員一覧</span></h3>
+<div class="container">
+  <h4 class="m-4"><span style="background-color:#eeeeee">会員一覧</span></h4>
+</div>
 
-  <table class="table">
-    <thead>
+ <div class="container">
+  <div class="row">
+   <table class="table">
+    <thead class=" thead-light ">
       <tr>
         <th>会員ID</th>
         <th>氏名</th>
@@ -23,6 +27,8 @@
           </td>
         </tr>
         <% end %>
-            
     </tbody>
   </table>
+  <%= paginate @customers %>
+  </div>
+</div>

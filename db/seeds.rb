@@ -24,6 +24,19 @@ else
 end
 # --Adminのseed設定ここまで--
 
+# Customerのseed
+Customer.create!(
+  email: 'customer1@example.com',
+  password: 'customer1',
+  last_name: '顧客',
+  first_name: '一号',
+  last_name_kana: 'コキャク',
+  first_name_kana: 'イチゴウ',
+  postal_code: '0000000',
+  telephone_number: '00000000000',
+  address: 'サンプル県サンプル市サンプル島１丁目'
+)
+
 # ----------------------------------------------------------------------------------
 # 動作確認のため下記追加しました。必要に応じてコメントアウトしてください！（田中）
 # データベース内にあるseedのデータを削除する場合は、下記1)または2)を実行してください

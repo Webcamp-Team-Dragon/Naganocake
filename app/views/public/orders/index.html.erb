@@ -1,29 +1,44 @@
-<h1>Public::Orders#index, 注文履歴画面</h1>
-<p>Find me in app/views/public/orders/index.html.erb</p>
-
-<% @orders.each do |f| %>
-<div>
-  <%= f.customer_id %>
-  <%= f.name %>
-  <%= f.address %>
-  <%= f.postal_code %>
-  <%= f.payment_method %>
-  <%= f.total_payment %>
-  <%= f.shipping_cost %>
-  <%= f.status %>
-
-  <% f.order_details.each do |order_detail| %>
-    <%= order_detail.item_id %>
-  <% end %>
-
+<div class="container">
+  <h1>注文履歴</h1>
+  <table class="table table-bordered">
+    <thead style="background-color: #f5f5f5;">
+      <tr>
+        <th>注文日</th>
+        <th>配送先</th>
+        <th>注文商品</th>
+        <th>支払金額</th>
+        <th>ステータス</th>
+        <th>注文詳細</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <!--注文日-->
+          <td class="align-middle"><%= order.created_at.strftime('%Y-%m-%d') %></td>
+          <!--配送先-->
+          <td class="align-middle">
+            <%= "〒"+order.postal_code %><br>
+            <!--郵便番号が数値として保存されている場合は、文字列として変換する必要あり-->
+            <%= order.address %><br>
+            <%= order.name %>
+          </td>
+          <!--注文商品-->
+          <td class="align-middle">
+            <ul>
+              <% order.order_details.each do |order_detail| %>
+                <li><%= order_detail.item.name %></li>
+              <% end %>
+            </ul>
+          </td>
+          <!--支払金額-->
+          <td class="align-middle"><%= number_to_currency(order.total_payment, delimiter: ',', unit:'', precision: 0)+"円" %></td>
+          <!--ステータス-->
+          <td class="align-middle"><%= order.status %></td>
+          <!--詳細リンク-->
+          <td class="align-middle"><%= link_to '表示する', order_path(order), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-<% end %>
-
-<% @order_details.each do |order_detail| %>
-  <div>
-    <p>商品名: <%= order_detail.item.name %></p>
-    <p>価格: <%= order_detail.price %></p>
-    <p>数量: <%= order_detail.amount %></p>
-    <p>製作ステータス: <%= order_detail.making_status %></p>
-  </div>
-<% end %>

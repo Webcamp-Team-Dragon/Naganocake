@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
  before_action :configure_permitted_parameters, if: :devise_controller?
+ before_action :set_search
 
   def after_sign_in_path_for(resource)
    case resource
@@ -11,7 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    home_about_path
+    about_path
+  end
+
+  def set_search
+  @search = Item.ransack(params[:q])
+  @search_items = @search.result.page(params[:page]).per(10)
   end
 
   protected
