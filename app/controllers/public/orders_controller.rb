@@ -32,9 +32,14 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_customer.orders.includes(:order_details) # order_detailsも同時に取得
   end
 
   def show
+    @order = current_user.orders.find_by(id: params[:id])
+    if @order.nil?
+      redirect_to public_orders_path, alert: "指定された注文は存在しません。"
+    end
   end
 
   private
