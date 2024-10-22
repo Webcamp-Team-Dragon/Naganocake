@@ -2,7 +2,7 @@ class Admin::ItemsController < ApplicationController
   before_action :authenticate_admin!
   # GET	/admin/items
   def index
-  @items = Item.page(params[:page])
+  @items = @search.result.page(params[:page])
   end
 
 # GET	/admin/items/new
@@ -14,7 +14,7 @@ class Admin::ItemsController < ApplicationController
   def create
    @item = Item.new(item_params)
     if @item.save
-   flash[:notice] = '登録成功！'   
+   flash[:notice] = '登録成功！'
     redirect_to admin_item_path(@item.id)
     else
    flash[:notice] = '登録エラー！'
@@ -36,7 +36,7 @@ class Admin::ItemsController < ApplicationController
   def update
   @items = Item.find(params[:id])
    if @items.update(item_params)
-    flash[:notice] = ' 更新成功！'    
+    flash[:notice] = ' 更新成功！'
     redirect_to admin_item_path(@items)
    else
     flash[:notice] = ' 更新エラー！'
