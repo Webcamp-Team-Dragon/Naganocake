@@ -1,5 +1,5 @@
 class Public::CustomersController < ApplicationController
-  
+
   def show
     @customer = current_customer
   end
@@ -28,7 +28,7 @@ class Public::CustomersController < ApplicationController
    flash[:notice] = "退会処理を実行しました。"
    redirect_to root_path
   end
- 
+
   private
 
   def customer_params
