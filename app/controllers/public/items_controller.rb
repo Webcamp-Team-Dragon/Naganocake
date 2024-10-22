@@ -7,9 +7,9 @@ class Public::ItemsController < ApplicationController
     else # 全商品の場合
       @search_items = Item.all
     end
-    @total_items = @search_items.count
-    @genres = Genre.all
-    @items = @search_items.page(params[:page]).per(8)  # ページネーション対応
+      @total_items = @search_items.count
+      @genres = Genre.all
+      @items = @search.result.page(params[:page]).per(8)  # ページネーション対応
   end
 
 # GET	/items/:id
