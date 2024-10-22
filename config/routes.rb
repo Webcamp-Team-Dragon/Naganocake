@@ -17,16 +17,17 @@ Rails.application.routes.draw do
     get 'orders/confirm'
     get 'orders/thanks'
     resources :orders, only: [:create, :index, :new, :show]
-    get 'genres', to: 'admin/genres#index', as: :genres
-    get 'genres/:id', to: 'admin/genres#show', as: :genre
+    # get 'genres', to: 'admin/genres#index', as: :genres
+    # get 'genres/:id', to: 'admin/genres#show', as: :genre
     get 'customers/my_page', to: 'customers#show'
     get 'customers/information/edit', to: 'customers#edit'
     patch 'customers/information', to: 'customers#update'
     get 'customers/unsubscribe'
     get 'customers/withdraw'
-    resources :orders, only: [:create, :index, :new, :show]
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
-    resources :genres
+    resources :genres, only: [:index, :show] do # ジャンル毎の商品絞り込みのため追記
+      resources :items, only: [:index] #
+    end #
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do

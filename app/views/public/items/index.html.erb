@@ -2,7 +2,15 @@
   <div class="row">
     <%= render 'public/items/sidebar', genres: @genres %>
     <div class="col-md-10">
+      <% if @genre %>
+      <!--ジャンルが選択された場合-->
+      <h2><%= @genre.name %>一覧<span style="font-size:20px;">(全<%= @total_items %>件)</span></h2>
+      <% else %>
+      <!--ジャンルが選択されていない場合-->
       <h2>商品一覧<span style="font-size:20px;">(全<%= @total_items %>件)</span></h2>
+      <% end %>
+
+
         <div class="d-flex flex-wrap">
           <% @search_items.each do |item| %>
           <div class="box" style="float:left; margin-right:20px;">
