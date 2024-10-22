@@ -11,6 +11,14 @@
       <%= f.label :payment_method, "銀行振込" %>
     </div>
 
+
+
+
+
+
+
+
+
     <h3>お届け先</h3>
     <div>
       <%= f.radio_button :address, [current_customer.postal_code, "　", current_customer.address, "　", current_customer.last_name, current_customer.first_name ], checked: true %>

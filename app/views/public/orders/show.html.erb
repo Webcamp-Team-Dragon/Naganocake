@@ -38,7 +38,7 @@
         <tbody>
           <tr>
             <td class="align-middle col-md-6" style="background-color: #f5f5f5;">商品合計</td>
-            <td class="align-middle"><%= number_to_currency(@order.total_payment, delimiter: ',', unit: '', precision: 0) %></td>
+            <td class="align-middle"><%= number_to_currency(@order.total_payment - @order.shipping_cost, delimiter: ',', unit: '', precision: 0) %></td>
           </tr>
           <tr>
             <td class="align-middle" style="background-color: #f5f5f5;">配送料</td>
@@ -46,7 +46,7 @@
           </tr>
           <tr>
             <td class="align-middle" style="background-color: #f5f5f5;"><strong>ご請求額</strong></td>
-            <td class="align-middle"><%= number_to_currency(@order.shipping_cost + @order.total_payment, delimiter: ',', unit: '', precision: 0) %></td>
+            <td class="align-middle"><%= number_to_currency(@order.total_payment, delimiter: ',', unit: '', precision: 0) %></td>
           </tr>
         </tbody>
       </table>
