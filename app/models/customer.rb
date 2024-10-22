@@ -10,7 +10,12 @@ class Customer < ApplicationRecord
    has_many :orders
    has_many :addresses, dependent: :destroy
    
-
+   #指定したカラムのメソッドがtrueの場合、trueを返す 
+  def active_for_authentication?
+    super && (is_active == true)
+  end
+   
+   
    def full_name
      "#{last_name} #{first_name}"
    end
