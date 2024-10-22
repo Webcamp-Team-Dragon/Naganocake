@@ -1,12 +1,18 @@
 <div class="container">
  <div class="row">
-  <div class="col-xs-12 mx-auto">
-
-     <p>このサイトは、ケーキ販売のECサイトになります。<br>
-        会員でない方も商品の閲覧はできますが、<br>
-        購入には会員登録が必要になります。<br></p>
-
-   </div>
+   <%= render 'public/items/sidebar', genres: @genres %>
+  <div class="col-xl-10 col-md-10" style="position: relative;">
+    <div class="position-relative" style="width: 80%">
+      <%= image_tag("mv.jpg", class: "img-fluid") %>
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:100%; text-align: center;">
+        <p style="background-color: white; padding: 10px; width: 70%; margin: 0 auto;">
+          このサイトは、ケーキ販売のECサイトになります。<br>
+          会員でない方も商品の閲覧はできますが、<br>
+          購入には会員登録が必要になります。<br>
+        </p>
+      </div>
+    </div>
+  </div>
  </div>
 
  <div class="col-xl-8 col-md-6">
@@ -17,9 +23,9 @@
  <div class="col-xl-12 col-md-12">
    <div class="d-flex justify-content-center flex-wrap">
     <% @items.each do |item| %>
-      <div class="box" style="float:left; margin-right:30px;">
+      <div class="box" style="float:left; margin-right: 30px;">
         <%= link_to item_path(item.id) do %>
-          <%= image_tag url_for(item.image.variant(resize_to_limit: [100, 100])) %><br>
+          <%= image_tag url_for(item.image.variant(resize_to_limit: [120, 120])) %><br>
         <% end %>
         <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
           <%= link_to item.name, item_path(item.id) %>
@@ -27,6 +33,11 @@
         <p>¥<%= item.price %></p>
       </div>
     <% end %>
-  </div>
+   </div>
+   <div class="row justify-content-end">
+     <div class="col-auto">
+       <%=link_to "全ての商品を見る>", items_path, style: "text-decoration: underline;" %>
+     </div>
    </div>
  </div>
+</div>
