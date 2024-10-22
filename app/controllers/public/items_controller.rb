@@ -2,7 +2,7 @@ class Public::ItemsController < ApplicationController
   # GET	/items
   def index
     @genres = Genre.all
-    @search = Item.ransack(params[:q])  # 検索オブジェクト作成
+    # @search = Item.ransack(params[:q])  # 検索オブジェクト作成
 
     # ジャンルが選択されている場合
     if params[:genre_id].present?
@@ -14,7 +14,7 @@ class Public::ItemsController < ApplicationController
 
     # 検索条件がある場合、検索結果で絞り込む
     if params[:q].present?
-      @search_items = @search.result.where(id: @search_items.pluck(:id))  # 検索とジャンルでの絞り込みを同時に
+      @search_items = @search.result
     end
 
     @total_items = @search_items.count
