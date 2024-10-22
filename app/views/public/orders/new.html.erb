@@ -24,7 +24,7 @@
   </div>
     <%= f.radio_button :address, :new_address %>
     <%= f.label :address, "新しいお届け先" %>
-    <%= fields_for "new_address[]", @address do |address_f| %>
+    <%= fields_for "new_address[]", Address.new do |address_f| %>
       <table>
         <tbody>
           <tr>

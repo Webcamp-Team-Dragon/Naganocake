@@ -1,7 +1,6 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
-    @address = Address.new
     @addresses = Address.where(customer_id: current_customer.id)
   end
 
