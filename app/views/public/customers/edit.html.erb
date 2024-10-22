@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="col-xl-3 col-md-4 bg-light text-center" style="margin-left: 20px;">
-        <h4 class="my-5">会員情報編集</h4>
-      </div>
+   <h4 class="my-5"><span style="background-color:#eeeeee">会員情報編集</span></h4>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="col-8">
+
       <%= form_with model: @customer, url: customers_information_path, method: :patch do |f| %>
       <table class="table table-borderless">
         <tr>
@@ -37,10 +38,10 @@
         <tr>
           <td></td>
           <td><%= f.submit "編集内容を保存", class:"btn btn-success" %></td>
-          <!--<td>%=link_to "退会する", customer_unsubscribe_path, class:"btn btn-danger" %></td>-->
+          <td><%=link_to "退会する", customers_unsubscribe_path, class:"btn btn-danger" %></td>
         </tr>
       </table>
       <% end %>
-    </div>
+   </div>
   </div>
 </div>
