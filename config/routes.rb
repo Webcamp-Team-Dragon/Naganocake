@@ -22,8 +22,8 @@ Rails.application.routes.draw do
     get 'customers/my_page', to: 'customers#show'
     get 'customers/information/edit', to: 'customers#edit'
     patch 'customers/information', to: 'customers#update'
-    get 'customers/unsubscribe'
-    get 'customers/withdraw'
+    # get 'customers/unsubscribe'
+    # get 'customers/withdraw'
     resources :orders, only: [:create, :index, :new, :show]
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :genres
@@ -33,6 +33,12 @@ Rails.application.routes.draw do
         delete :destroy_all # カートを空にするルート
       end
     end
+    # 退会確認画面
+    get 'customers/unsubscribe' => 'customers#unsubscribe'
+    # 論理削除用のルーティング
+    patch 'customers/withdraw' => 'customers#withdraw' 
+    
+    
   end
 
   namespace :admin do
