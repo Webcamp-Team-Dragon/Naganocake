@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @search_items.each do |item| %>
+          <% @items.each do |item| %>
             <tr>
               <td><%= item.id %></td>
               <td><%= link_to item.name ,admin_item_path(item.id) %></td>

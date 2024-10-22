@@ -12,7 +12,7 @@
 
 
         <div class="d-flex flex-wrap">
-          <% @search_items.each do |item| %>
+          <% @items.each do |item| %>
             <div class="col-md-3 mb-4"> <!-- 4つの列 -->
               <div class="box text-center">
                 <%= link_to item_path(item.id) do %>
