@@ -1,8 +1,8 @@
 class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
-    @address = current_customer.address
-    @addresses = Address.all
+    @address = Address.new
+    @addresses = Address.where(customer_id: current_customer.id)
   end
 
   def confirm
@@ -27,11 +27,11 @@ class Public::OrdersController < ApplicationController
        @order_detail.save
        @cart_items.each do |cart_item|
          @order.order_details.create(
-          item_id: cart_item.item_id,
-          price: cart_item.item.price,
-          amount: cart_item.amount
-        )
-      end
+           item_id: cart_item.item_id,
+           price: cart_item.item.price,
+           amount: cart_item.amount
+           )
+         end
       # カートを空にする処理（注文が完了した後はカートをクリア）
       @cart_items.destroy_all
       redirect_to orders_thanks_path

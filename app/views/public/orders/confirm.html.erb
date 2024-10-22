@@ -48,15 +48,21 @@
   <p><%= Order.payment_methods.key(params[:order][:payment_method].to_i) %></p>
 
   <b>お届け先</b>
-  <!--%= params[:order][:address] %>-->
+  <%= params[:order][:address] %>/
+  <%= params[:order][:my_address] %>/
+  <%= params[:order][:select_address] %>/
+  <%= params[:order][:new_address] %>/
+
+<%= params[:new_address][0][:address] %>
+
+
   <p><%= @customer.last_name + @customer.first_name %></p>
-  <%= f.hidden_field :customer_id, value: current_customer.id %>
-  <%= f.hidden_field :name, value: current_customer.last_name %>
-  <%= f.hidden_field :address, value: current_customer.address %>
-  <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
+  ##########<%= f.hidden_field :name, value: current_customer.last_name %>##########
+  ##########<%= f.hidden_field :address, value: current_customer.address %>##########
+  ##########<%= f.hidden_field :postal_code, value: current_customer.postal_code %>###########
   <%= f.hidden_field :payment_method, value: Order.payment_methods.key(params[:order][:payment_method].to_i)  %>
   <%= f.hidden_field :total_payment, value: shipping_cost_ex + @order.shipping_cost %>
-  <%= f.hidden_field :shipping_cost, value: @order.shipping_cost = 800 %>
+  <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
   <%= f.hidden_field :status, value: 0 %>
   <%= f.submit '注文を確定する'  %>
   <% end %>
