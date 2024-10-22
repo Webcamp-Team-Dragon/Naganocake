@@ -1,9 +1,7 @@
 class Public::ItemsController < ApplicationController
   # GET	/items
   def index
-    # @items = Item.all
-    @items = Item.page(params[:page]).per(8) # 1ページあたり5件
-    @item = Item.page(params[:page])
+    @items = @search.result.page(params[:page]).per(8)
     @total_items = Item.count
     @genres = Genre.all
   end
