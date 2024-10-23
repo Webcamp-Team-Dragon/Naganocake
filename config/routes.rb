@@ -22,10 +22,8 @@ Rails.application.routes.draw do
     get 'customers/my_page', to: 'customers#show'
     get 'customers/information/edit', to: 'customers#edit'
     patch 'customers/information', to: 'customers#update'
-    # 退会確認画面
-    get 'customers/unsubscribe' => 'customers#unsubscribe'
-    # 論理削除用のルーティング
-    patch 'customers/withdraw' => 'customers#withdraw' 
+    get 'customers/unsubscribe'
+    get 'customers/withdraw'
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :genres, only: [:index, :show] do # ジャンル毎の商品絞り込みのため追記
       resources :items, only: [:index] #
@@ -46,9 +44,6 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :orders
-    get 'order_details/update'
-    get 'orders/show'
-    get 'orders/update', to: 'orders#update'
+    resources :orders, only: [:index, :show, :update]
  end
 end
