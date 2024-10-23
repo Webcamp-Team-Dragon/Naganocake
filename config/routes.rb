@@ -47,8 +47,6 @@ Rails.application.routes.draw do
     resources :customers, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :orders
-    get 'order_details/update'
-    get 'orders/show'
-    get 'orders/update', to: 'orders#update'
+    resources :order_details
  end
 end
