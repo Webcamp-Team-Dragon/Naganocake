@@ -1,5 +1,9 @@
 class Admin::OrderDetailsController < ApplicationController
+<<<<<<< HEAD
 	before_action :authenticate_admin!
+=======
+   before_action :authenticate_admin!
+>>>>>>> develop
 
 	def update
 	   @order_detail = OrderDetail.find(params[:id])
@@ -8,11 +12,11 @@ class Admin::OrderDetailsController < ApplicationController
 		when "製作中"
 	   @order_detail.order.update(status: "製作中")
 		when "製作完了"
-	   if @order_detail.order.order_details.all?{|order_detail| @order_detail.making_status == "製作完了"}
+	   if @order_detail.order.order_details.all?{|order_detail| order_detail.making_status == "製作完了"}
 	   @order_detail.order.update(status: "発送準備中")
 	   end
 	   end
-	   redirect_to admins_order_path(@order_detail.order.id)
+	   redirect_to admin_order_path(@order_detail.order)
 	end
 
 	private
