@@ -1,6 +1,6 @@
 <p>Find me in app/views/public/orders/confirm.html.erb</p>
 
-<%= form_with model: @order, url: orders_path do |f| %>
+<%= form_with model: Order.new, url: orders_path do |f| %>
   <% shipping_cost_ex = 0 %>
   <% @cart_items.each do |f| %>
     <%= fields_for "order_detail[]", OrderDetail.new do |order_detail| %>
@@ -47,17 +47,22 @@
   <b>支払い方法</b>
   <p><%= Order.payment_methods.key(params[:order][:payment_method].to_i) %></p>
 
-  <b>お届け先</b
+  <b>お届け先</b>
+    <%= params[:order][:selected_address] %>/
 
-  <%= params[:order][:address] %>/
+<%= current_customer.address %>/
+  <%= params[:order][:shipping_address] %>/
   <%= params[:order][:my_address] %>/
   <%= params[:order][:select_address] %>/
   <%= params[:order][:new_address] %>/
 
-<%= params[:new_address][0][:address] %>
+
 
 
   <p><%= @customer.last_name + @customer.first_name %></p>
+
+  <%= params[:new_address][0][:address] %>
+
   ##########<%= f.hidden_field :name, value: current_customer.last_name %>##########
   ##########<%= f.hidden_field :address, value: current_customer.address %>##########
   ##########<%= f.hidden_field :postal_code, value: current_customer.postal_code %>###########

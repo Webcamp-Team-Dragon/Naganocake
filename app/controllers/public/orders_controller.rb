@@ -9,6 +9,14 @@ class Public::OrdersController < ApplicationController
     @cart_items = @customer.cart_items
     @order = Order.new
     @order.shipping_cost = 800
+    if params[:order][:shipping_address] == "my_address"
+    elsif params[:order][:shipping_address] == "select_address" && params[:order][:selected_address].empty?
+      redirect_to new_order_path, alert: '配送先を選択してください'
+    elsif params[:order][:shipping_address] == "new_address"
+      if params[:new_address].any? { |address| address["postal_code"].empty? || address["address"].empty? || address["name"].empty? }
+        redirect_to new_order_path, alert: '新しいお届け先の情報が不足しています'
+      end
+    end
   end
 
   def thanks
@@ -58,15 +66,15 @@ class Public::OrdersController < ApplicationController
     order_params.permit(:customer_id, :name, :address, :postal_code, :payment_method, :total_payment, :shipping_cost, :status)
   end
 
-  # def order_detail_params
-  #   order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
-  #   order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
-  #   order_detail_params
-  # end
-
   def order_detail_params
-    params.require(:order).permit(order_details: [:item_id, :amount, :price, :making_status])
+    order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
+    order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
+    order_detail_params
   end
+
+  # def order_detail_params
+  #   params.require(:order).permit(order_details: [:item_id, :amount, :price, :making_status])
+  # end
 
   # def address_params
   #   params.require(:address).permit(:customer_id, :postal_code, :address, :name)
