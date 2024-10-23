@@ -11,11 +11,6 @@ class Public::ItemsController < ApplicationController
     else
       @search_items = Item.all
     end
-<<<<<<< HEAD
-      @total_items = @search_items.count
-      @genres = Genre.all
-      @items = @search.result.page(params[:page]).per(8)  # ページネーション対応
-=======
 
     # 検索条件がある場合、検索結果で絞り込む
     if params[:q].present?
@@ -24,7 +19,6 @@ class Public::ItemsController < ApplicationController
 
     @total_items = @search_items.count
     @items = @search_items.page(params[:page]).per(8)  # ページネーション対応
->>>>>>> develop
   end
 
   # GET /items/:id
