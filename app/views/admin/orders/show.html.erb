@@ -53,16 +53,12 @@
         <tbody>
           <% @order.order_details.each do |order_detail| %>
             <tr>
-              <td><%= order_detail.name %></td>
+              <td><%= order_detail.order.name %></td>
               <td><%= (order_detail.price).floor.to_s(:delimited, delimiter: ',') %></td>
               <td><%= order_detail.amount %></td>
               <td><%= (order_detail.price * order_detail.amount).floor.to_s(:delimited, delimiter: ',') %></td>
               <td>
-<<<<<<< HEAD
-                <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), local: true, class: "form-row" do |f| %>
-=======
                 <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), local: true, class: "form-row" do |f| %>
->>>>>>> develop
                 <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, class: "mr-4" %>
                 <%= f.submit "更新", class:"btn btn-sm btn-success" %>
                 <% end %>
