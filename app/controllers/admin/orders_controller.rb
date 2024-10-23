@@ -4,7 +4,7 @@ class Admin::OrdersController < ApplicationController
   # GET	/admin/orders/:id
   def show
     @order = Order.find(params[:id])
-    @order_items = @order.order_details
+    @order_details = @order.order_details
   end
   # ※2種類のコントローラーを使用
   # PATCH	/admin/orders/:id
