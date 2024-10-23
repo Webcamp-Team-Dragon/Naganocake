@@ -15,20 +15,20 @@
   </div>
  </div>
 
- <div class="col-xl-8 col-md-6">
-   <div class="d-flex justify-content-center" style="text-align: center; padding-top: 30px; margin-right: 50px;">
+ <div class="col-xl-8 col-md-9">
+   <div class="d-flex justify-content-center" style="text-align: center; padding-top: 30px; margin-right: 200px;">
      <h3>新着商品</h3>
    </div>
  </div>
  <div class="col-xl-12 col-md-12">
    <div class="d-flex justify-content-center flex-wrap">
     <% @items.each do |item| %>
-      <div class="box" style="float:left; margin-right: 30px;">
+      <div class="box text-center" style="float:left; margin: 30px;">
         <%= link_to item_path(item.id) do %>
           <%= image_tag url_for(item.image.variant(resize_to_limit: [120, 120])) %><br>
         <% end %>
         <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-          <%= link_to item.name, item_path(item.id) %>
+          <%= link_to truncate(item.name, length: 10), item_path(item.id) %>
         </p>
         <p>¥<%= item.price %></p>
       </div>
