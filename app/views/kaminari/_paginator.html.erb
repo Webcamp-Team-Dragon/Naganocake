@@ -13,7 +13,6 @@
     <% each_page do |page| -%>
       <% if page.display_tag? -%>
         <%= page_tag page %>
-        <%# ここに空白を挿入する %>
         <span style="margin: 0 5px;"></span>
       <% elsif !page.was_truncated? -%>
         <%= gap_tag %>
