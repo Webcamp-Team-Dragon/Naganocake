@@ -17,7 +17,7 @@ class Admin::OrdersController < ApplicationController
 	 @order_details.update_all(making_status: "製作待ち")
 	end
 	flash[:notice] = "注文詳細の更新に成功しました。"
-	redirect_to admin_root_path
+	redirect_to admin_order_path(@order)
 	end
 
   def order_params
