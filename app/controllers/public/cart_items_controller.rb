@@ -31,15 +31,38 @@ class Public::CartItemsController < ApplicationController
 # POST	/cart_items
   def create
     if customer_signed_in?
-      quantity = params[:quantity].to_i  # フォームから送信されたquantityは文字列として受け取られます。to_iを使って整数に変換します。
+      quantity = params[:quantity].to_i
       logger.debug "Quantity: #{quantity}, Item ID: #{params[:item_id]}"
-      if quantity > 0  # フォームで選択された数量が0より大きいかをチェックしています。
-        @cart_item = CartItem.new(item_id: params[:item_id], amount: quantity, customer_id: current_customer.id)
-        if @cart_item.save
-          redirect_to cart_items_path, notice: '商品がカートに追加されました'
+
+      if quantity > 0
+        # 既に同じ商品がカートに存在するか確認
+        existing_cart_item = current_customer.cart_items.find_by(item_id: params[:item_id])
+
+        if existing_cart_item
+          # 既存のカートアイテムがある場合、現在の数量と追加したい数量の合計が10を超えないか確認
+          new_quantity = existing_cart_item.amount + quantity
+          if new_quantity > 10
+            redirect_to item_path(params[:item_id]), alert: 'カート内の数量は10個までです'
+          else
+            existing_cart_item.amount = new_quantity
+            if existing_cart_item.save
+              redirect_to cart_items_path, notice: 'カート内の商品の数量が更新されました'
+            else
+              redirect_to item_path(params[:item_id]), alert: '商品の数量を更新できませんでした'
+            end
+          end
         else
-          # logger.debug @cart_item.errors.full_messages  エラーメッセージをログに出力
-          redirect_to item_path(params[:item_id]), alert: '商品をカートに追加できませんでした'
+          # 既存のカートアイテムがない場合、新規作成。ただし、数量は10個以下にする
+          if quantity > 10
+            redirect_to item_path(params[:item_id]), alert: 'カートに追加できる最大数量は10個です'
+          else
+            @cart_item = CartItem.new(item_id: params[:item_id], amount: quantity, customer_id: current_customer.id)
+            if @cart_item.save
+              redirect_to cart_items_path, notice: '商品がカートに追加されました'
+            else
+              redirect_to item_path(params[:item_id]), alert: '商品をカートに追加できませんでした'
+            end
+          end
         end
       else
         redirect_to item_path(params[:item_id]), alert: '個数を選択してください'
