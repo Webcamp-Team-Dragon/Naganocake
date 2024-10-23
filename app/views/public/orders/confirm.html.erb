@@ -1,6 +1,6 @@
 <p>Find me in app/views/public/orders/confirm.html.erb</p>
 
-<%= form_with model: @order, url: orders_path do |f| %>
+<%= form_with model: Order.new, url: orders_path do |f| %>
   <% shipping_cost_ex = 0 %>
   <% @cart_items.each do |f| %>
     <%= fields_for "order_detail[]", OrderDetail.new do |order_detail| %>
@@ -43,27 +43,34 @@
       <%= order_detail.hidden_field :making_status, value: :製作待ち %>
       <% end %>
     <% end %>
-
   <b>支払い方法</b>
   <p><%= Order.payment_methods.key(params[:order][:payment_method].to_i) %></p>
-
-  <b>お届け先</b
-
-  <%= params[:order][:address] %>/
-  <%= params[:order][:my_address] %>/
-  <%= params[:order][:select_address] %>/
-  <%= params[:order][:new_address] %>/
-
-<%= params[:new_address][0][:address] %>
-
-
-  <p><%= @customer.last_name + @customer.first_name %></p>
-  ##########<%= f.hidden_field :name, value: current_customer.last_name %>##########
-  ##########<%= f.hidden_field :address, value: current_customer.address %>##########
-  ##########<%= f.hidden_field :postal_code, value: current_customer.postal_code %>###########
+  <b>お届け先</b>
+    <% if params[:order][:shipping_address] == "my_address" %>
+      <p>ご自身の住所</p>
+      <p>〒<%= current_customer.postal_code %>　<%= current_customer.address %></p>
+      <p><%= current_customer.last_name + current_customer.first_name %></p>
+        <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
+        <%= f.hidden_field :address, value: current_customer.address %>
+        <%= f.hidden_field :name, value: current_customer.last_name + current_customer.first_name %>
+    <% elsif params[:order][:shipping_address] == "select_address" %>
+      <p>登録済住所から選択</p>
+      <p>〒<%= @address.postal_code %>　<%= @address.address %></p>
+      <p><%= @address.name %></p>
+        <%= f.hidden_field :postal_code, value: @address.postal_code %>
+        <%= f.hidden_field :address, value: @address.address %>
+        <%= f.hidden_field :name, value: @address.name %>
+    <% elsif params[:order][:shipping_address] == "new_address" %>
+      <p>新しいお届け先</p>
+      <p>〒<%= params[:new_address][0][:postal_code] %>　<%= params[:new_address][0][:address] %></p>
+      <p><%= params[:new_address][0][:name] %></p>
+        <%= f.hidden_field :postal_code, value: params[:new_address][0][:postal_code] %>
+        <%= f.hidden_field :address, value: params[:new_address][0][:address] %>
+        <%= f.hidden_field :name, value: params[:new_address][0][:name] %>
+    <% end %>
   <%= f.hidden_field :payment_method, value: Order.payment_methods.key(params[:order][:payment_method].to_i)  %>
   <%= f.hidden_field :total_payment, value: shipping_cost_ex + @order.shipping_cost %>
   <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
   <%= f.hidden_field :status, value: 0 %>
   <%= f.submit '注文を確定する'  %>
-  <% end %>
+<% end %>
