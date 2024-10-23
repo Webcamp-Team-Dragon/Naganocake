@@ -9,13 +9,14 @@ class Public::OrdersController < ApplicationController
     @cart_items = @customer.cart_items
     @order = Order.new
     @order.shipping_cost = 800
+
+    @address = Address.find_by(id: params[:order][:selected_address].to_i)
+
     if params[:order][:shipping_address] == "my_address"
     elsif params[:order][:shipping_address] == "select_address" && params[:order][:selected_address].empty?
       redirect_to new_order_path, alert: '配送先を選択してください'
-    elsif params[:order][:shipping_address] == "new_address"
-      if params[:new_address].any? { |address| address["postal_code"].empty? || address["address"].empty? || address["name"].empty? }
+    elsif params[:order][:shipping_address] == "new_address" && params[:new_address].any? { |address| address["postal_code"].empty? || address["address"].empty? || address["name"].empty? }
         redirect_to new_order_path, alert: '新しいお届け先の情報が不足しています'
-      end
     end
   end
 
@@ -30,15 +31,18 @@ class Public::OrdersController < ApplicationController
     # @address = Address.new(address_params)
     # @address.customer_id = current_customer.id
     if @order.save
-       @order_detail = @order.order_details.build(order_detail_params)
-       @order_detail.save
-       @cart_items.each do |cart_item|
-         @order.order_details.create(
-           item_id: cart_item.item_id,
-           price: cart_item.item.price,
-           amount: cart_item.amount
-           )
-         end
+      @order_detail = @order.order_details.build(order_detail_params)
+      @order_details = []
+      @cart_items.each do |cart_item|
+        @order.order_details.create(
+          item_id: cart_item.item_id,
+          price: cart_item.item.price,
+          amount: cart_item.amount
+          )
+        end
+        @order_details.each do |order_detail|
+          order_detail.save
+        end
       # カートを空にする処理（注文が完了した後はカートをクリア）
       @cart_items.destroy_all
       redirect_to orders_thanks_path
@@ -67,9 +71,11 @@ class Public::OrdersController < ApplicationController
   end
 
   def order_detail_params
-    order_detail_params = params.require(:order_detail).permit(:item_id, :order_id, :price, :amount, :making_status )
-    order_detail_params[:making_status] = order_detail_params[:making_status].to_i if order_detail_params.key?(:making_status)
-    order_detail_params
+    order_details = params.require(:order_detail)
+    permitted_params = order_details.map do |order_detail|
+      order_detail.permit(:item_id, :price, :amount, :making_status)
+    end
+    permitted_params
   end
 
   # def order_detail_params
