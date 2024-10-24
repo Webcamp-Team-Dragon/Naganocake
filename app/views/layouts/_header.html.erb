@@ -1,7 +1,9 @@
 <header>
   <div class="container-fluid", style="background-color: #f1f0e5; margin-bottom: 50px; padding: 20px;">
     <nav class="navbar navbar-expand-md navbar-light">
-　　<%= link_to "NaganoCAKE", root_path, class:"header-title navbar-brand"%>
+　　<%= link_to root_path, class:"header-title navbar-brand" do %>
+      <%= image_tag("logo1.png",style: "width: 200px; height:150px; ") %>
+    <% end %>
       <ul class="navbar-nav">
 
        <% if customer_signed_in? %>
