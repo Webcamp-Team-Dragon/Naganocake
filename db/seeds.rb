@@ -65,7 +65,7 @@ items_data = [
   { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, image_path: 'app/assets/images/i_cake2.jpg' },
   { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, image_path: 'app/assets/images/i_cookie1.jpg' },
   { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, image_path: 'app/assets/images/i_pudding1.jpg' },
-  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, image_path: 'app/assets/images/i_candy1.jpg' },
+  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, image_path: 'app/assets/images/i_candy1.png' },
   { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, image_path: 'app/assets/images/i_millfeuille1.jpg' },
   { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, image_path: 'app/assets/images/i_cake3.jpg' }
 ]
