@@ -23,9 +23,9 @@
                 <% @cart_items.each do |f| %>
                 <tr>
                   <td class="align-middle"><%= f.item.name %></td>
-                  <td class="align-middle"><%= f.item.add_tax_price %></td>
+                  <td class="align-middle"><%= f.item.add_tax_price.to_s(:delimited) %></td>
                   <td class="align-middle"><%= f.amount %></td>
-                  <td class="align-middle"><%= f.item.add_tax_price * f.amount %></td>
+                  <td class="align-middle"><%= number_with_delimiter(f.item.add_tax_price * f.amount) %></td>
                   <% shipping_cost_ex += f.item.add_tax_price * f.amount %>
                   <%= order_detail.hidden_field :item_id, value: f.item_id %>
                   <%= order_detail.hidden_field :amount, value: f.amount %>
@@ -44,11 +44,11 @@
               </tr>
               <tr>
                 <th style="background-color: #f2f2f2;">商品合計</th>
-                <td><%= shipping_cost_ex %></td>
+                <td><%= shipping_cost_ex.to_s(:delimited) %></td>
               </tr>
               <tr>
                 <th style="background-color: #f2f2f2;">請求金額</th>
-                <td><%= shipping_cost_ex + @order.shipping_cost %></td>
+                <td><%= number_with_delimiter(shipping_cost_ex + @order.shipping_cost) %></td>
               </tr>
             </table>
           </div>
