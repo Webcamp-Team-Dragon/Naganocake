@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 2024_10_21_074704) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.integer "customer_id"
-    t.string "postal_code"
-    t.string "address"
-    t.string "name"
+    t.integer "customer_id", null: false
+    t.string "postal_code", null: false
+    t.string "address", null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -90,17 +90,17 @@ ActiveRecord::Schema.define(version: 2024_10_21_074704) do
   end
 
   create_table "genres", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "genre_id"
-    t.string "name"
-    t.text "introduction"
-    t.integer "price"
-    t.boolean "is_active"
+    t.integer "genre_id", null: false
+    t.string "name", null: false
+    t.text "introduction", null: false
+    t.integer "price", null: false
+    t.boolean "is_active", null: false
     t.string "image_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -118,13 +118,13 @@ ActiveRecord::Schema.define(version: 2024_10_21_074704) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.string "name"
-    t.string "address"
-    t.string "postal_code"
-    t.integer "payment_method"
-    t.integer "total_payment"
-    t.integer "shipping_cost"
-    t.integer "status"
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "postal_code", null: false
+    t.integer "payment_method", null: false
+    t.integer "total_payment", null: false
+    t.integer "shipping_cost", null: false
+    t.integer "status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

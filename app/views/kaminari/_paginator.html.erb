@@ -9,7 +9,9 @@
 <%= paginator.render do -%>
   <nav class="pagination" role="navigation" aria-label="pager">
     <%= first_page_tag unless current_page.first? %>
+    <span style="margin: 0 5px;"></span>
     <%= prev_page_tag unless current_page.first? %>
+    <span style="margin: 0 5px;"></span>
     <% each_page do |page| -%>
       <% if page.display_tag? -%>
         <%= page_tag page %>

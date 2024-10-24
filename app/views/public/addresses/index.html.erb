@@ -1,25 +1,20 @@
-<h3>配送先登録 / 一覧</h3>
-
+<div class="container">
+<h4 class="m-4"><span style="background-color:#eeeeee">配送先登録・一覧</span></h4>
+</div>
 <%= form_with model: @address, url: addresses_path do |f| %>
-  <table class="table">
-    <thead>
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <table class=" table table-borderless">
+       <tbody>
       <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>
+        <td class="col-3">
           <%= f.label :postal_code, "郵便番号(ハイフンなし)" %>
         </td>
         <td>
         </td>
-        <td><%= f.text_field :postal_code %></td>
+        <td><%= f.text_field :postal_code, placeholder: "0000000" %>
+        </td>
         <td></td>
         <td></td>
       </tr>
@@ -29,7 +24,7 @@
         </td>
         <td></td>
         <td>
-          <%= f.text_field :address %>
+          <%= f.text_field :address, :size=>"60", placeholder: "東京都渋谷区代々木神園町0-0" %>
         </td>
         <td></td>
         <td></td>
@@ -40,24 +35,31 @@
         </td>
         <td></td>
         <td>
-          <%= f.text_field :name %>
+          <%= f.text_field :name, placeholder: "令和道子" %>
         </td>
         <td></td>
         <td>
-          <%= f.submit "新規登録" %>
+          <%= f.submit "新規登録", class:"btn btn-success px-4" %>
         </td>
+      <% end %>
       </tr>
     </tbody>
   </table>
-<% end %>
+    </div>
+  </div>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
+
+  <div class="container">
+    <div class="row">
+     <div class="col-9">
+      <table class="table table-bordered">
+        <thead class=" thead-light ">
+          <tr>
       <th>郵便番号</th>
       <th>住所</th>
       <th>宛名</th>
-      <th>(編集と削除ボタン)</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -67,10 +69,14 @@
         <td><%= f.address %></td>
         <td><%= f.name %></td>
         <td>
-          <%= link_to "編集する", edit_address_path(f) %>
-          <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？' } %>
+          <%= link_to "編集する", edit_address_path(f), class: "glyphicon glyphicon-pencil btn-sm btn-success" %>
+          <%= link_to "削除する", address_path(f), method: :delete, data: { confirm: '本当に消しますか？'}, class: "glyphicon glyphicon-trash btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+      </div>
+    </div>
+  </div>
+</div>

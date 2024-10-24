@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     get 'customers/information/edit', to: 'customers#edit'
     patch 'customers/information', to: 'customers#update'
     get 'customers/unsubscribe'
-    get 'customers/withdraw'
+    patch 'customers/withdraw'
+    get 'customers' => "homes#top"
     resources :addresses, only: [:new, :index, :edit, :create, :update, :destroy]
     resources :genres, only: [:index, :show] do # ジャンル毎の商品絞り込みのため追記
       resources :items, only: [:index] #
@@ -44,7 +45,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :orders
-    resources :order_details
+    resources :orders, only: [:show, :update]
+    resources :order_details, only: [:update]
  end
 end
