@@ -55,7 +55,7 @@
        </div>
 
         <!-- 検索窓 -->
-        <li class="searchbox" style="position: absolute; top: 55px; right: 15px;">
+        <li class="searchbox" style="position: absolute; top: 30px; right: 15px;">
      　　<%= search_form_for(@search, url:admin_items_path) do |f| %>
           <%= f.text_field :name_cont ,placeholder: '商品名を入力' %>
         <% end %>
