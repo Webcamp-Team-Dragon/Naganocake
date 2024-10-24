@@ -61,13 +61,13 @@ end
 
 # アイテムのデータを作成
 items_data = [
-  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500 },
-  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800 },
-  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800 },
-  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600 },
-  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700 },
-  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100 },
-  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330 }
+  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, image_path: 'app/assets/images/i_cake1.jpg' },
+  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, image_path: 'app/assets/images/i_cake2.jpg' },
+  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, image_path: 'app/assets/images/i_cookie1.jpg' },
+  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, image_path: 'app/assets/images/i_pudding1.jpg' },
+  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, image_path: 'app/assets/images/i_candy1.jpg' },
+  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, image_path: 'app/assets/images/i_millfeuille1.jpg' },
+  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, image_path: 'app/assets/images/i_cake3.jpg' }
 ]
 
 items_data.each do |item_data|
@@ -91,12 +91,3 @@ items_data.each do |item_data|
 end
 
 puts "All items processed!"
-
-# # カート内アイテムの作成　※customerの情報追加後に実施予定
-# cart_items = CartItem.create([
-#   { customer_id: 1, items_id: 1, amount: 2 },
-#   { customer_id: 1, items_id: 2, amount: 1 },
-#   { customer_id: 2, items_id: 3, amount: 4 },
-#   { customer_id: 2, items_id: 1, amount: 1 }
-# ])
-# -----------------------------------Genres、Items、Cart_itemsのseed追加ここまで----------------------------------
