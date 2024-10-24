@@ -63,24 +63,3 @@ Customer.create!(
   { genre_id: genres[0].id, name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_millefeuille1.png"), filename: "i_millefeuille1.png"), },
   { genre_id: genres[0].id, name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_cake3.jpg"), filename: "i_cake3.jpg"), },
 ])
-# items_data.each do |item_data|
-#   genre = Genre.find_by(name: item_data[:genre_name])
-
-#   # アイテムがすでに存在するか確認。存在しない場合は新規作成、存在する場合は更新する形。
-#   item = Item.find_or_initialize_by(name: item_data[:name], genre_id: genre.id)
-
-#   # アイテムの属性を設定
-#   item.introduction = item_data[:introduction]
-#   item.price = item_data[:price]
-#   item.is_active = true
-#   item.image = ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/image_tag"), filename: "item.image") unless item.persisted?
-
-#   if item.new_record? || item.changed?
-#     item.save!
-#     puts "Item '#{item.name}' created or updated!"
-#   else
-#     puts "Item '#{item.name}' already exists!"
-#   end
-# end
-
-# puts "All items processed!"
