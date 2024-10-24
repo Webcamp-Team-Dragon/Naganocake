@@ -1,5 +1,6 @@
 class Public::OrdersController < ApplicationController
     before_action :authenticate_customer!
+    before_action :cart_items_blank?, only: [:new, :confirm, :create]
 
   def new
     @order = Order.new
@@ -37,15 +38,15 @@ class Public::OrdersController < ApplicationController
           price: cart_item.item.price,
           amount: cart_item.amount
           )
-        end
-        @order_details.each do |order_detail|
-          order_detail.save
-        end
+      end
+      @order_details.each do |order_detail|
+        order_detail.save
+      end
       # カートを空にする処理（注文が完了した後はカートをクリア）
       @cart_items.destroy_all
       redirect_to orders_thanks_path
     else
-      redirect_to request.referer
+      redirect_to root_path, alert: 'カートが空です'
     end
   end
 
@@ -75,5 +76,11 @@ class Public::OrdersController < ApplicationController
       order_detail.permit(:item_id, :price, :amount, :making_status)
     end
     permitted_params
+  end
+
+  def cart_items_blank?
+    if CartItem.all.blank?
+      redirect_to root_path, alert: 'カートが空です'
+    end
   end
 end
