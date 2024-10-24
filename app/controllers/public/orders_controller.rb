@@ -17,7 +17,7 @@ class Public::OrdersController < ApplicationController
     elsif params[:order][:shipping_address] == "select_address" && params[:order][:selected_address].empty?
       redirect_to new_order_path, alert: '配送先を選択してください'
     elsif params[:order][:shipping_address] == "new_address" && params[:new_address].any? { |address| address["postal_code"].empty? || address["address"].empty? || address["name"].empty? }
-        redirect_to new_order_path, alert: '新しいお届け先の情報が不足しています'
+      redirect_to new_order_path, alert: '新しいお届け先の情報が不足しています'
     end
   end
 
