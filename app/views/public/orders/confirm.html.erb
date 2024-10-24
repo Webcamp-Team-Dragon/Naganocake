@@ -23,10 +23,10 @@
                 <% @cart_items.each do |f| %>
                 <tr>
                   <td class="align-middle"><%= f.item.name %></td>
-                  <td class="align-middle"><%= f.item.price %></td>
+                  <td class="align-middle"><%= f.item.add_tax_price %></td>
                   <td class="align-middle"><%= f.amount %></td>
-                  <td class="align-middle"><%= f.item.price * f.amount %></td>
-                  <% shipping_cost_ex += f.item.price * f.amount %>
+                  <td class="align-middle"><%= f.item.add_tax_price * f.amount %></td>
+                  <% shipping_cost_ex += f.item.add_tax_price * f.amount %>
                   <%= order_detail.hidden_field :item_id, value: f.item_id %>
                   <%= order_detail.hidden_field :amount, value: f.amount %>
                   <%= order_detail.hidden_field :price, value: f.item.price %>
