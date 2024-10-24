@@ -9,9 +9,7 @@ class Public::OrdersController < ApplicationController
     @cart_items = @customer.cart_items
     @order = Order.new
     @order.shipping_cost = 800
-
     @address = Address.find_by(id: params[:order][:selected_address].to_i)
-
     if params[:order][:shipping_address] == "my_address"
     elsif params[:order][:shipping_address] == "select_address" && params[:order][:selected_address].empty?
       redirect_to new_order_path, alert: '配送先を選択してください'
@@ -28,8 +26,6 @@ class Public::OrdersController < ApplicationController
     @cart_items = @customer.cart_items
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    # @address = Address.new(address_params)
-    # @address.customer_id = current_customer.id
     if @order.save
       @order_detail = @order.order_details.build(order_detail_params)
       @order_details = []
@@ -61,6 +57,7 @@ class Public::OrdersController < ApplicationController
     @order_details = @order.order_details.includes(:item)
   end
 
+
   private
 
   def order_params
@@ -77,13 +74,4 @@ class Public::OrdersController < ApplicationController
     end
     permitted_params
   end
-
-  # def order_detail_params
-  #   params.require(:order).permit(order_details: [:item_id, :amount, :price, :making_status])
-  # end
-
-  # def address_params
-  #   params.require(:address).permit(:customer_id, :postal_code, :address, :name)
-  # end
-
 end
