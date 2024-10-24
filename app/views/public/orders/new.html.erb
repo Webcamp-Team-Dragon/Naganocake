@@ -1,11 +1,11 @@
 <div class="mt-4">
   <div class="container">
-    <h4 class="mb-3">注文情報入力</h4>
+    <h4 class="mb-3"><span style="background-color:#eeeeee">注文情報入力</span></h4>
   </div>
   <div class="container">
     <%= form_with model: @order, url: orders_confirm_path, method: :get do |f| %>
       <div>
-        <div><b>支払い方法</b></div>
+        <div><b>支払方法</b></div>
         <div style="padding-left: 50px;">
           <div>
             <%= f.radio_button :payment_method, 0, checked: true %>
