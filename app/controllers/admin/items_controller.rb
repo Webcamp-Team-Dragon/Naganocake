@@ -2,7 +2,7 @@ class Admin::ItemsController < ApplicationController
   before_action :authenticate_admin!
   # GET	/admin/items
   def index
-  @items = @search.result.page(params[:page])
+  @items = @search.result.page(params[:page]).per(5)
   end
 
 # GET	/admin/items/new
