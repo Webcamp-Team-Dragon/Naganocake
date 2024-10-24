@@ -5,7 +5,7 @@
 <% else %>
   <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">ショッピングカート</h5>
+      <h5 class="mb-0"><span style="background-color:#eeeeee">ショッピングカート</span></h5>
       <%= button_to 'カートを空にする', destroy_all_cart_items_path, method: :delete, data: { confirm: '本当にカートを空にしますか？' }, class: 'btn btn-danger' %>
     </div>
   </div>
@@ -28,7 +28,7 @@
             <td class="align-middle">
               <%= form_with url: cart_item_path(cart_item), method: :patch do |f| %>
                   <%= f.select :amount, options_for_select((1..10).map { |n| [n, n] }, cart_item.amount), class: "form-control me-2", id: "cart_item_amount_#{cart_item.id}" %>
-                  <%= f.submit "変更", class: "btn btn-primary" %>
+                  <%= f.submit "変更", class: "btn btn-success" %>
               <% end %>
             </td>
             <td class="align-middle"><%= number_to_currency(cart_item.item.price * cart_item.amount,delimiter: ',', unit: '', precision: 0) %></td>

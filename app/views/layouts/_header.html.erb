@@ -1,9 +1,11 @@
 <header>
-  <div class="container-fluid", style="background-color: #f1f0e5; margin-bottom: 20px; padding: 20px;">
+  <div class="container-fluid", style="background-color: #f1f0e5; margin-bottom: 50px; padding: 20px;">
     <nav class="navbar navbar-expand-md navbar-light">
-
-    	 <%= link_to "NaganoCAKE", root_path, class:"header-title navbar-brand"%>
+　　<%= link_to root_path, class:"header-title navbar-brand" do %>
+      <%= image_tag("logo1.png",style: "width: 200px; height:150px; ") %>
+    <% end %>
       <ul class="navbar-nav">
+
        <% if customer_signed_in? %>
       <!--カスタマーがログインしている時 -->
        <li style="position: absolute; top: 35%; left: 40%; transform: translateX(-50%); font-size: 14px;">
@@ -78,12 +80,11 @@
         <li class="searchbox" style="position: absolute; top: 40px; right: 15px;">
           <%= search_form_for(@search, url:items_path) do |f| %>
             <%= f.text_field :name_cont ,placeholder: '商品名を入力' %>
-            <%= f.submit '検索' %>
           <% end %>
 　　　　</li>
         <% end %>
+
       </ul>
-      </div>
     </nav>
   </div>
 </header>

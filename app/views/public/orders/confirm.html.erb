@@ -1,76 +1,92 @@
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
-
-<%= form_with model: Order.new, url: orders_path do |f| %>
-  <% shipping_cost_ex = 0 %>
-  <% @cart_items.each do |f| %>
-    <%= fields_for "order_detail[]", OrderDetail.new do |order_detail| %>
-      <table>
-        <thead>
-          <tr>
-            <th>商品名</th>
-            <th>単価(税込)</th>
-            <th>数量</th>
-            <th>小計</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= f.item.name %></td>
-            <td><%= f.item.price %></td>
-            <td><%= f.amount %></td>
-            <td><%= f.item.price * f.amount %></td>
-            <% shipping_cost_ex += f.item.price * f.amount %>
-            <%= order_detail.hidden_field :item_id, value: f.item_id %>
-            <%= order_detail.hidden_field :amount, value: f.amount %>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <tr>
-          <th>送料</th>
-          <th><%= @order.shipping_cost %></th>
-        </tr>
-        <tr>
-          <th>商品合計</th>
-          <th><%= shipping_cost_ex %></th>
-        </tr>
-        <tr>
-          <th>請求金額</th>
-          <th><%= shipping_cost_ex + @order.shipping_cost %></th>
-        </tr>
-      </table>
-      <%= order_detail.hidden_field :price, value: f.item.price %>
-      <%= order_detail.hidden_field :making_status, value: :製作待ち %>
+<div class="my-4" style="padding-bottom: 20px;">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h4 class="mb-0"><span style="background-color:#eeeeee">注文情報確認</span></h4>
+    </div>
+  </div>
+  <div class="container my-3">
+    <%= form_with model: Order.new, url: orders_path do |f| %>
+      <%= fields_for "order_detail[]", OrderDetail.new do |order_detail| %>
+        <div class="row">
+          <div class="col-8">
+          <% shipping_cost_ex = 0 %>
+            <table class="table table-bordered">
+              <thead style="background-color: #f2f2f2;">
+                <tr>
+                  <th>商品名</th>
+                  <th style="width: 120px;">単価(税込)</th>
+                  <th style="width: 120px;">数量</th>
+                  <th style="width: 120px;">小計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @cart_items.each do |f| %>
+                <tr>
+                  <td class="align-middle"><%= f.item.name %></td>
+                  <td class="align-middle"><%= f.item.price %></td>
+                  <td class="align-middle"><%= f.amount %></td>
+                  <td class="align-middle"><%= f.item.price * f.amount %></td>
+                  <% shipping_cost_ex += f.item.price * f.amount %>
+                  <%= order_detail.hidden_field :item_id, value: f.item_id %>
+                  <%= order_detail.hidden_field :amount, value: f.amount %>
+                  <%= order_detail.hidden_field :price, value: f.item.price %>
+                  <%= order_detail.hidden_field :making_status, value: "製作不可" %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-4">
+          <table class="table table-bordered">
+              <tr>
+                <th style="background-color: #f2f2f2;">送料</th>
+                <td><%= @order.shipping_cost %></td>
+              </tr>
+              <tr>
+                <th style="background-color: #f2f2f2;">商品合計</th>
+                <td><%= shipping_cost_ex %></td>
+              </tr>
+              <tr>
+                <th style="background-color: #f2f2f2;">請求金額</th>
+                <td><%= shipping_cost_ex + @order.shipping_cost %></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="my-3">
+          <div>
+            <b>支払い方法</b>
+          <span>　<%= Order.payment_methods.key(params[:order][:payment_method].to_i) %></span>
+          </div>
+          <div>
+            <b>お届け先　</b>
+            <% if params[:order][:shipping_address] == "my_address" %>
+              <span>　〒<%= current_customer.postal_code %>　<%= current_customer.address %></span>
+              <span>　<%= current_customer.last_name + current_customer.first_name %> 様</span>
+              <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
+              <%= f.hidden_field :address, value: current_customer.address %>
+              <%= f.hidden_field :name, value: current_customer.last_name + current_customer.first_name %>
+            <% elsif params[:order][:shipping_address] == "select_address" %>
+              <span>　〒<%= @address.postal_code %>　<%= @address.address %></span>
+              <span>　<%= @address.name %> 様</span>
+              <%= f.hidden_field :postal_code, value: @address.postal_code %>
+              <%= f.hidden_field :address, value: @address.address %>
+              <%= f.hidden_field :name, value: @address.name %>
+            <% elsif params[:order][:shipping_address] == "new_address" %>
+              <span>　〒<%= params[:new_address][0][:postal_code] %>　<%= params[:new_address][0][:address] %></span>
+              <span>　<%= params[:new_address][0][:name] %> 様</span>
+              <%= f.hidden_field :postal_code, value: params[:new_address][0][:postal_code] %>
+              <%= f.hidden_field :address, value: params[:new_address][0][:address] %>
+              <%= f.hidden_field :name, value: params[:new_address][0][:name] %>
+            <% end %>
+          </div>
+        </div>
+        <%= f.hidden_field :payment_method, value: params[:order][:payment_method]  %>
+        <%= f.hidden_field :total_payment, value: shipping_cost_ex + @order.shipping_cost %>
+        <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
+        <%= f.hidden_field :status, value: 0 %>
+        <div class="text-center"><%= f.submit '注文を確定する', class:"btn btn-success" %></div>
       <% end %>
     <% end %>
-  <b>支払い方法</b>
-  <p><%= Order.payment_methods.key(params[:order][:payment_method].to_i) %></p>
-  <b>お届け先</b>
-    <% if params[:order][:shipping_address] == "my_address" %>
-      <p>ご自身の住所</p>
-      <p>〒<%= current_customer.postal_code %>　<%= current_customer.address %></p>
-      <p><%= current_customer.last_name + current_customer.first_name %></p>
-        <%= f.hidden_field :postal_code, value: current_customer.postal_code %>
-        <%= f.hidden_field :address, value: current_customer.address %>
-        <%= f.hidden_field :name, value: current_customer.last_name + current_customer.first_name %>
-    <% elsif params[:order][:shipping_address] == "select_address" %>
-      <p>登録済住所から選択</p>
-      <p>〒<%= @address.postal_code %>　<%= @address.address %></p>
-      <p><%= @address.name %></p>
-        <%= f.hidden_field :postal_code, value: @address.postal_code %>
-        <%= f.hidden_field :address, value: @address.address %>
-        <%= f.hidden_field :name, value: @address.name %>
-    <% elsif params[:order][:shipping_address] == "new_address" %>
-      <p>新しいお届け先</p>
-      <p>〒<%= params[:new_address][0][:postal_code] %>　<%= params[:new_address][0][:address] %></p>
-      <p><%= params[:new_address][0][:name] %></p>
-        <%= f.hidden_field :postal_code, value: params[:new_address][0][:postal_code] %>
-        <%= f.hidden_field :address, value: params[:new_address][0][:address] %>
-        <%= f.hidden_field :name, value: params[:new_address][0][:name] %>
-    <% end %>
-  <%= f.hidden_field :payment_method, value: Order.payment_methods.key(params[:order][:payment_method].to_i)  %>
-  <%= f.hidden_field :total_payment, value: shipping_cost_ex + @order.shipping_cost %>
-  <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
-  <%= f.hidden_field :status, value: 0 %>
-  <%= f.submit '注文を確定する'  %>
-<% end %>
+  </div>
+</div>
