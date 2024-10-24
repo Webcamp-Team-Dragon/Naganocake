@@ -61,13 +61,13 @@ end
 
 # アイテムのデータを作成
 items_data = [
-  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, image_path: 'app/assets/images/i_cake1.jpg' },
-  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, image_path: 'app/assets/images/i_cake2.jpg' },
-  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, image_path: 'app/assets/images/i_cookie1.jpg' },
-  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, image_path: 'app/assets/images/i_pudding1.jpg' },
-  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, image_path: 'app/assets/images/i_candy1.jpg' },
-  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, image_path: 'app/assets/images/i_millfeuille1.jpg' },
-  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, image_path: 'app/assets/images/i_cake3.jpg' }
+  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, image_file: 'i_cake1.jpg' },
+  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 350, image_file: 'i_cake2.jpg' },
+  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 300, image_file: 'i_cookie1.jpg' },
+  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 250, image_file: 'i_pudding1.jpg' },
+  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 200, image_file: 'i_candy1.jpg' },
+  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 400, image_file: 'i_millefeuille1.jpg' },
+  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, image_file: 'i_cake3.jpg' }
 ]
 
 items_data.each do |item_data|
@@ -80,14 +80,9 @@ items_data.each do |item_data|
   item.introduction = item_data[:introduction]
   item.price = item_data[:price]
   item.is_active = true
-  item.image = ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg") unless item.persisted?
 
-  if item.new_record? || item.changed?
-    item.save!
-    puts "Item '#{item.name}' created or updated!"
-  else
-    puts "Item '#{item.name}' already exists!"
-  end
+  # 画像ファイルを設定
+  item.image = ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/#{item_data[:image_file]}"), filename: item_data[:image_file])
+
+  item.save!
 end
-
-puts "All items processed!"
