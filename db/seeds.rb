@@ -47,47 +47,19 @@ Customer.create!(
 # ・Genre.delete_allの2つを実行する
 
 # ジャンルのデータを作成
-genres_data = [
+  genres = Genre.create([
   { name: 'ケーキ' },
   { name: '焼き菓子' },
   { name: 'プリン' },
   { name: 'キャンディ' }
-]
-
-genres_data.each do |genre_data|
-  genre = Genre.find_or_create_by(name: genre_data[:name])  # find_or_create_byを使用して、ジャンルが存在しない場合のみ新しく作成します。
-  puts "Genre '#{genre.name}' created or already exists!"
-end
-
+])
 # アイテムのデータを作成
-items_data = [
-  { genre_name: 'ケーキ', name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, image_path: 'app/assets/images/i_cake1.jpg' },
-  { genre_name: 'ケーキ', name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, image_path: 'app/assets/images/i_cake2.jpg' },
-  { genre_name: '焼き菓子', name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, image_path: 'app/assets/images/i_cookie1.jpg' },
-  { genre_name: 'プリン', name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, image_path: 'app/assets/images/i_pudding1.jpg' },
-  { genre_name: 'キャンディ', name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, image_path: 'app/assets/images/i_candy1.png' },
-  { genre_name: 'ケーキ', name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, image_path: 'app/assets/images/i_millfeuille1.jpg' },
-  { genre_name: 'ケーキ', name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, image_path: 'app/assets/images/i_cake3.jpg' }
-]
-
-items_data.each do |item_data|
-  genre = Genre.find_by(name: item_data[:genre_name])
-
-  # アイテムがすでに存在するか確認。存在しない場合は新規作成、存在する場合は更新する形。
-  item = Item.find_or_initialize_by(name: item_data[:name], genre_id: genre.id)
-
-  # アイテムの属性を設定
-  item.introduction = item_data[:introduction]
-  item.price = item_data[:price]
-  item.is_active = true
-  item.image = ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/sample.jpg"), filename: "sample.jpg") unless item.persisted?
-
-  if item.new_record? || item.changed?
-    item.save!
-    puts "Item '#{item.name}' created or updated!"
-  else
-    puts "Item '#{item.name}' already exists!"
-  end
-end
-
-puts "All items processed!"
+  items = Item.create([
+  { genre_id: genres[0].id, name: 'いちごのショートケーキ（ホール）', introduction: 'いちごのショートケーキです。(seeds.rb内記述)', price: 2500, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_cake1.jpg"), filename: "i_cake1.jpg"), },
+  { genre_id: genres[0].id, name: 'ガトーショコラ', introduction: 'ガトーショコラです。(seeds.rb内記述)', price: 2800, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_cake2.jpg"), filename: "i_cake2.jpg"), },
+  { genre_id: genres[1].id, name: 'クッキー', introduction: 'クッキーです。(seeds.rb内記述)', price: 800, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_cookie1.jpg"), filename: "i_cookie1.jpg"), },
+  { genre_id: genres[2].id, name: 'チョコプリン', introduction: 'チョコプリンです。(seeds.rb内記述)', price: 600, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_pudding1.jpg"), filename: "i_pudding1.jpg"), },
+  { genre_id: genres[3].id, name: '抹茶キャンディ', introduction: '抹茶のキャンディです(seeds.rb内記述)', price: 700, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_candy1.png"), filename: "i_candy1.png"), },
+  { genre_id: genres[0].id, name: 'チョコバナナミルフィーユ', introduction: 'チョコバナナミルフィーユです。(seeds.rb内記述)', price: 1100, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_millefeuille1.png"), filename: "i_millefeuille1.png"), },
+  { genre_id: genres[0].id, name: 'チーズタルト', introduction: 'チーズタルトです。(seeds.rb内記述)', price: 330, is_active: true, image: ActiveStorage::Blob.create_and_upload!(io: File.open("app/assets/images/i_cake3.jpg"), filename: "i_cake3.jpg"), },
+])
