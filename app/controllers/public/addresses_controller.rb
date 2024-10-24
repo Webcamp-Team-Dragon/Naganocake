@@ -17,8 +17,9 @@ class Public::AddressesController < ApplicationController
     if @address.save
       redirect_to request.referer
     else
-      redirect_to root_path
+      redirect_to addresses_path ,alert: '新しいお届け先の情報が不足しています'
     end
+
   end
 
   def update
