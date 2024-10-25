@@ -1,7 +1,7 @@
 class Public::OrdersController < ApplicationController
     before_action :authenticate_customer!
-    before_action :cart_items_blank?, only: [:new, :confirm, :create]
-
+    before_action :cart_items_blank?, only: [:new]
+    before_action :payment_method_blank?, only: [:confirm, :create, :thanks]
   def new
     @order = Order.new
     @addresses = Address.where(customer_id: current_customer.id)
@@ -81,6 +81,12 @@ class Public::OrdersController < ApplicationController
   def cart_items_blank?
     if CartItem.all.blank?
       redirect_to root_path, alert: 'カートが空です'
+    end
+  end
+
+  def payment_method_blank?
+    if params[:order].nil? || params[:order][:payment_method].blank?
+      redirect_to root_path, alert: "リンクが無効です"
     end
   end
 end
