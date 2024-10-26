@@ -1,6 +1,5 @@
-# README
+# ながのCAKE
 
-ながのCAKE
 長野県にある小さな洋菓子点「ながのCAKE」の商品を通販するためのECサイト
 
 Things you may want to cover:
