@@ -66,6 +66,6 @@ InstagramのDMやメールで通販の注文を受けていたが、情報管理
 パスワード：admin12<br>
 
 【顧客用アカウント：ログイン】 <br>
-メールアドレス：ustomer1@example.com<br>
+メールアドレス：customer1@example.com<br>
 パスワード：customer1<br>
 （登録画面にて新規登録も可能です。）
