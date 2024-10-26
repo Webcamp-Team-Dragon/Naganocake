@@ -62,11 +62,10 @@ InstagramのDMやメールで通販の注文を受けていたが、情報管理
 ターミナル（もしくはコマンドプロンプト）で上記の作業を行った後、ローカルサーバーにアクセスしてご覧ください。
 
 【管理者用アカウント：ログイン】<br>
-メールアドレス：admin@admin<br>
-パスワード：admin0<br>
+メールアドレス：admin@example.com<br>
+パスワード：admin12<br>
 
 【顧客用アカウント：ログイン】 <br>
-メールアドレス：member1@member<br>
-パスワード：members<br>
+メールアドレス：ustomer1@example.com<br>
+パスワード：customer1<br>
 （登録画面にて新規登録も可能です。）
-
