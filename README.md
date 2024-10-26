@@ -1,6 +1,7 @@
-# ながのCAKE
+# README
 
-長野県にある小さな洋菓子点「ながのCAKE」の商品を通販するためのECサイト
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
 Things you may want to cover:
 
