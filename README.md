@@ -1,10 +1,8 @@
-# ながのCAKE
+* README
 
-長野県にある小さな洋菓子点「ながのCAKE」の商品を通販するためのECサイト
+This README would normally document whatever steps are necessary to get the application up and running.
 
-# サイトトップページ画像
-
-![Naganocake](https://github.com/user-attachments/assets/da5bf604-e3e5-459e-b611-8bf8fcfc5858)
+Things you may want to cover:
 
 * Ruby version
 
