@@ -116,3 +116,9 @@
 # 使っている言語やフレームワークのバージョン
 <p>Ruby on Rails 6.1.7.9</p>
 
+$ git clone https://github.com/webcamp-team-dragon/naganocake.git
+$ cd naganocake
+$ bundle install
+$ rails db:migrate
+$ rails db:seed
+$ rails s
