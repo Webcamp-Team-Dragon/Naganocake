@@ -1,7 +1,7 @@
 class Public::OrdersController < ApplicationController
     before_action :authenticate_customer!
     before_action :cart_items_blank?, only: [:new]
-    before_action :payment_method_blank?, only: [:confirm, :create, :thanks]
+    before_action :payment_method_blank?, only: [:confirm, :create]
   def new
     @order = Order.new
     @addresses = Address.where(customer_id: current_customer.id)
