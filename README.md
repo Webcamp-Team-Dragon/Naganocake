@@ -98,18 +98,5 @@
 <p>・商品一覧画面にて商品キーワード名（部分一致）で商品名を検索することができる。</p>
 
 # 使っている言語やフレームワークのバージョン
-Ruby on Rails 6.1.7.9
+<p>Ruby on Rails 6.1.7.9</p>
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
