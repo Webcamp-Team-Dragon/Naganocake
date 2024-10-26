@@ -69,3 +69,13 @@ InstagramのDMやメールで通販の注文を受けていたが、情報管理
 メールアドレス：customer1@example.com<br>
 パスワード：customer1<br>
 （登録画面にて新規登録も可能です。）
+
+
+# 作成者
+
+チーム名【 Dragon 】<br>
+メンバー<br>
+・阪本健竜<br>
+・田中千晶<br>
+・中村龍哉<br>
+・菱沼笙
